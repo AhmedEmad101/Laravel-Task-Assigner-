@@ -44,5 +44,42 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }//////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //relations
+    public function UserTasks()
+    {
+       return $this->hasMany(Task::class);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function IsLeader(User $user)
+    {
+        if($user->role == 2)
+        {
+            return true;
+        }
     }
 }
