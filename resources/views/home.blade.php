@@ -42,7 +42,8 @@
             <div class="col-12 text-center">
                 <h1>Welcome to Task Assigner</h1>
                 <p>This is the home page where you can learn more about us.</p>
-                <button class="btn btn-primary">Get Started</button>
+                <button class="btn btn-primary">Create a task</button>
+                <button class="btn btn-primary">Create a team</button>
             </div>
         </div>
 
