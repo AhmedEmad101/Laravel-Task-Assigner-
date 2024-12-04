@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('home', function () {
-    return view('home');
-});
+Route::view('home','home');
+Route::view('task','task');
+Route::view('project','project');
+Route::view('team','team');
