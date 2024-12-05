@@ -1,11 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProjectController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::view('home','home');
-Route::view('task','task');
-Route::view('project','project');
-Route::view('team','team');
+$pages = ['home','task', 'project','team','login'];
+foreach ($pages as $page) {
+    Route::view($page, $page);
+}
+//createproject
+Route::post('createproject', [ProjectController::class, 'store']);
+Route::get('allprojects', [ProjectController::class, 'index']);
+Route::view('AllProjects','AllProjects');

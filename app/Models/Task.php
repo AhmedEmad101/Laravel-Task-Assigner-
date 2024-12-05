@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {protected $fillable = ['Creator','name','description'];
-
+public function creator()
+{
+    return $this->belongsTo(User::class , 'Creator');
+}
 }

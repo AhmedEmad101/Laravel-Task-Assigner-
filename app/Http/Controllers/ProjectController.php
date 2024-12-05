@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProjectRequest;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -13,7 +14,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        return Project::paginate(5);
     }
 
     /**
@@ -27,9 +28,14 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
-        //
+       $title = $request->title;
+       $description = $request->description;
+       $Project = Project::create(['title'=> $title,'description'=> $description]);
+       $Project->save();
+       return response()->json(['successfully added'.$title.' '. $description]);
+
     }
 
     /**

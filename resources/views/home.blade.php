@@ -31,6 +31,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login">Login</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -43,8 +46,8 @@
                 <h1>Welcome to Task Assigner</h1>
                 <p>This is the home page where you can learn more about us.</p>
                 <button class="btn btn-primary" onclick="location.href='team'">Create a team</button>
-                <button class="btn btn-primary">Create a project</button>
-                <button class="btn btn-primary">Create a task</button>
+                <button class="btn btn-primary" onclick="location.href='project'">Create a project</button>
+                <button class="btn btn-primary" onclick="location.href='task'">Create a task</button>
             </div>
         </div>
 
@@ -53,9 +56,9 @@
                 <div class="card">
                     <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">About Us</h5>
+                        <h5 class="card-title">My Tasks</h5>
                         <p class="card-text">Learn more about our mission and values.</p>
-                        <a href="#" class="btn btn-outline-primary">Read More</a>
+                        <a href="#" class="btn btn-outline-primary">View</a>
                     </div>
                 </div>
             </div>
@@ -63,9 +66,9 @@
                 <div class="card">
                     <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Our Services</h5>
+                        <h5 class="card-title">My Projects</h5>
                         <p class="card-text">Explore the services we offer to our clients.</p>
-                        <a href="#" class="btn btn-outline-primary">View Services</a>
+                        <a href="allprojects" class="btn btn-outline-primary">View </a>
                     </div>
                 </div>
             </div>
@@ -73,9 +76,9 @@
                 <div class="card">
                     <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Contact Us</h5>
+                        <h5 class="card-title">My Teams</h5>
                         <p class="card-text">Get in touch with us for inquiries and support.</p>
-                        <a href="#" class="btn btn-outline-primary">Contact Now</a>
+                        <a href="#" class="btn btn-outline-primary">View</a>
                     </div>
                 </div>
             </div>

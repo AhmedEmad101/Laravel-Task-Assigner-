@@ -83,17 +83,24 @@
 <body>
     <div class="task-form-container">
         <h2>Create a Project</h2>
-        <form action="#" method="post">
+        <form action="createproject" method="post">
+            @csrf
             <div class="form-group">
                 <label for="task-name">Project Name</label>
-                <input type="text" id="task-name" name="task_name" placeholder="Enter task name" required>
+                <input type="text" id="task-name" name="title" placeholder="Enter project name" required>
             </div>
             <div class="form-group">
                 <label for="task-description">Project Description</label>
-                <textarea id="task-description" name="task_description" placeholder="Enter task description" required></textarea>
+                <textarea id="task-description" name="description" placeholder="Enter project description" required></textarea>
             </div>
             <button type="submit" class="submit-btn">Create Project</button>
         </form>
+     @error('title')
+        {{$message}}
+     @enderror
+     @error('description')
+     {{$message}}
+     @enderror
     </div>
 </body>
 </html>

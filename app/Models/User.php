@@ -48,7 +48,7 @@ class User extends Authenticatable
     //relations
     public function UserTasks()
     {
-       return $this->hasMany(Task::class);
+       return $this->hasMany(Task::class ,'Creator');
     }
 
 

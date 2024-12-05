@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string(column: 'description');
+            $table->string(column: 'description')->nullable(true);
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

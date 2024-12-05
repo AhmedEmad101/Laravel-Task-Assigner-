@@ -86,7 +86,7 @@
         <form action="#" method="post">
             <div class="form-group">
                 <label for="task-name">Team ID</label>
-                <input type="text" id="task-name" name="task_name" placeholder="Enter task name" required>
+                <input type="text" id="task-name" name="task_name" placeholder="Enter team name" required>
             </div>
             <div class="form-group">
                 <label for="task-description"> Description</label>
