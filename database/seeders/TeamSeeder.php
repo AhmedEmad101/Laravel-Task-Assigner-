@@ -21,7 +21,8 @@ class TeamSeeder extends Seeder
             DB::table('teams')->insert([
                 'id'=> $id,
                 'Leader_Id'=> $id,
-                'Project_Id' =>$id
+                'Project_Id' =>$id,
+                'name' =>'test'
             ]);
             $id++;
     }

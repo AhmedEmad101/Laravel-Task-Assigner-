@@ -85,13 +85,10 @@
         <h2>Create a Team</h2>
         <form action="#" method="post">
             <div class="form-group">
-                <label for="task-name">Team ID</label>
+                <label for="task-name">Team name</label>
                 <input type="text" id="task-name" name="task_name" placeholder="Enter team name" required>
             </div>
-            <div class="form-group">
-                <label for="task-description"> Description</label>
-                <textarea id="task-description" name="task_description" placeholder="Enter task description" required></textarea>
-            </div>
+
             <button type="submit" class="submit-btn">Create a team</button>
         </form>
     </div>
