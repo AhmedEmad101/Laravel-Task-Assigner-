@@ -17,6 +17,7 @@ class ProjectSeeder extends Seeder
     for($x = 0;$x<10;$x++){
 
         DB::table('projects')->insert([
+            'Creator'=>1,
             'title' => Str::random(10)
             ,'description' => Str::random(10) ]);
     }

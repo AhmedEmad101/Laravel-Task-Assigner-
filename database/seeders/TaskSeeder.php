@@ -17,7 +17,7 @@ class TaskSeeder extends Seeder
         for($x = 0;$x<10;$x++){
 
             DB::table('tasks')->insert([
-                'Creator'=>1,
+                'Project_ID'=>1,
                 'name' => Str::random(10)
                 ,'description' => Str::random(10) ]);
         }

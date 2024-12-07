@@ -13,4 +13,9 @@ class UserController extends Controller
     $User = User::where('id',1)->first();
     return $User->UserTasks->pluck('name');
    }
+   public function UserInfo($id)
+   {
+    $User = User::where('id',$id)->first();
+    return $User;
+   }
 }
