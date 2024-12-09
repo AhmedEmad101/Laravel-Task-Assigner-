@@ -1,7 +1,10 @@
 function logout() {
     // Remove the token and user ID from local storage
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user_id');
+   // localStorage.removeItem('access_token');
+    //localStorage.removeItem('id');
+    //localStorage.removeItem('name');
+    localStorage.clear();
+
 
     // Optionally, notify the user or log out from the server
     axios.post('api/logout') // Only if you need to notify the server about logout
@@ -17,4 +20,4 @@ function logout() {
 }
 
 // Example of attaching the logout function to a button click event
-document.getElementById('logout-button').addEventListener('click', logout);
+document.getElementById('logoutbutton').addEventListener('click', logout);
