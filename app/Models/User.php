@@ -14,8 +14,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable , HasApiTokens;
 
     /**
-     * The attributes that are mass assignable.
-     *
+     * The attributes that are mass assignable.ZZZZZZZZZZZZ
      * @var array<int, string>
      */
     protected $fillable = [

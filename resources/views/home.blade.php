@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page with Navbar</title>
+    <title>Home Page</title>
     <!-- Bootstrap CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Optional Bootstrap Icons (for using icons in navbar) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="Auth.js"></script>
     <script src="AuthData.js"></script>
     <script src="LoginCheck.js"></script>
+    <script src="{{asset('logout.js') }}"></script>
+    <script src="{{asset('testlogout.js') }}"></script>
 </head>
 <body>
     <!-- Navbar -->
@@ -26,6 +29,9 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="subscriptions">Subsription</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
                     <li class="nav-item">
@@ -35,8 +41,13 @@
                         <a class="nav-link" href="#">Contact</a>
                     </li>
                     <li class="nav-item">
+
+                        @Auth
+                        <button id="logoutbutton" >Logout</button>
+                        @else
                         <a class="nav-link" href="login"><span id="lgn">Login</span></a>
-                        <button>Logout</button>
+                        @endif
+
                     </li>
                 </ul>
             </div>
@@ -52,6 +63,7 @@
                 <button class="btn btn-primary" onclick="location.href='team'">Create a team</button>
                 <button class="btn btn-primary" onclick="location.href='project'">Create a project</button>
                 <button class="btn btn-primary" onclick="location.href='task'">Create a task</button>
+                <button class="btn btn-primary" onclick="location.href='send'">Send SMS</button>
             </div>
         </div>
 

@@ -1,0 +1,53 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.subscription-container {
+    display: flex;
+    gap: 20px;
+}
+
+.subscription {
+    text-align: center;
+    border-radius: 10px;
+    padding: 20px;
+    width: 200px;
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.subscription:hover {
+    transform: scale(1.05);
+}
+
+.bronze {
+    background-color: #cd7f32;
+}
+
+.silver {
+    background-color: #c0c0c0;
+}
+
+.gold {
+    background-color: #ffd700;
+}
+
+.subscription h2 {
+    margin-bottom: 10px;
+}
+
+.subscription p {
+    font-size: 0.9rem;
+}
