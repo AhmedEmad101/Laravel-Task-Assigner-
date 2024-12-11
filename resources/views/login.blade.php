@@ -64,10 +64,16 @@
                 localStorage.setItem('access_token', result.access_token);
                 localStorage.setItem('id', result.id);
                 localStorage.setItem('name', result.name);
+                localStorage.setItem('role', result.role);
                 // Redirect to dashboard or any protected route
                  //window.location.href = 'home';
+                 if(result.role === 1){
                  window.location.assign('home');
-
+                 }
+                 else
+                 {
+                    window.location.assign('admin');
+                 }
 
                // window.location.href = 'dashboard';
             } else {

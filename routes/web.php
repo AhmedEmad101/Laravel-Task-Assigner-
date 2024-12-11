@@ -17,6 +17,8 @@ foreach ($pages as $page) {
 Route::post('createproject', [ProjectController::class, 'store']);
 Route::get('allprojects', [ProjectController::class, 'index']);
 Route::view('AllProjects','AllProjects');
+//////////////////////////////////////////////////////
+Route::view('adminallusers','PartialViews.admin.allusers');
 Route::view('test','Test.login');
 /////////////////////////////////////////
 Route::get('send', [SmsController::class, 'send']);

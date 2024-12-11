@@ -13,7 +13,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 ////////////Authentication ///////////////////////////////////
 //////////////////////////////////////////////////////////////
-route::post('login',[AuthController::class,'Login'])->middleware('admin')->name('loginapi');//user and admin check;
+route::post('login',[AuthController::class,'Login'])->name('loginapi');//user and admin check;
 route::post('logout',[AuthController::class,'logout']);
 route::get('user/{id}',action: [UserController::class,'UserInfo']);
 route::get('test/{id}',action: [UserController::class,'test'])->middleware('auth:sanctum','admin');//user and admin check

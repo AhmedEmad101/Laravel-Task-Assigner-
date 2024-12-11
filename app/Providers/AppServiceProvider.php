@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Project;
+use App\Models\Task;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,11 +23,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        view()->composer(['AllProjects','admin'], function ($view) {
+        view()->composer(['AllProjects','admin','PartialViews.admin.allusers'], function ($view) {
 
             $Project = Project::all();
             $user = User::all();
-            $view->with(['Project'=>$Project,'user'=>$user]);
+            $task = Task::all();
+            $team = Team::all();
+            $view->with(['Project'=>$Project,'user'=>$user ,'task'=>$task ,'team'=>$team]);
         });
     }
 }
