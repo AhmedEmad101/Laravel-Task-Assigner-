@@ -27,7 +27,8 @@ class AuthController extends Controller
           ['access_token'=>$user->createToken($device)->plainTextToken
           ,'id'=>$user->id
           ,'name'=>$user->name
-          ,'email'=>$user->email]
+          ,'email'=>$user->email
+          ,'role'=>$user->role]
       );
     }
     public function logout(Request $request)

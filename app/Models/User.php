@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -49,6 +50,10 @@ class User extends Authenticatable
     public function UserProjects()
     {
        return $this->hasMany(Project::class ,'Creator');
+    }
+    public function IsAdmin()
+    {
+       return $this->role === 2;
     }
 
 

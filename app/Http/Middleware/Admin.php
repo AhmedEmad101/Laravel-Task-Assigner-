@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 class Admin
 {
@@ -15,11 +16,13 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->role == '2')
+        $user = User::where('email',$request->email)->first();
+        if($user->role == 2)
         {
-           return response()->json('Welcome Admin');
+            return $next($request);
+
         }
-        return $next($request);
+            abort(401);
 
     }
 }

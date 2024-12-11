@@ -67,6 +67,8 @@
                 // Redirect to dashboard or any protected route
                  //window.location.href = 'home';
                  window.location.assign('home');
+
+
                // window.location.href = 'dashboard';
             } else {
                 alert(result.error);
