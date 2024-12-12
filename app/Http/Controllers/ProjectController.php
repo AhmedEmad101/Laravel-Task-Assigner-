@@ -30,9 +30,10 @@ class ProjectController extends Controller
      */
     public function store(ProjectRequest $request)
     {
+        $Creator = $request->input('UserId');
        $title = $request->title;
        $description = $request->description;
-       $Project = Project::create(['title'=> $title,'description'=> $description]);
+       $Project = Project::create(['Creator'=> $Creator ,'title'=> $title,'description'=> $description]);
        $Project->save();
        return response()->json(['successfully added'.$title.' '. $description]);
 

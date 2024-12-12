@@ -83,10 +83,11 @@
 <body>
     <div class="task-form-container">
         <h2>Create a Team</h2>
-        <form action="#" method="post">
+        <form action="createteam" method="post">
+            @csrf
             <div class="form-group">
                 <label for="task-name">Team name</label>
-                <input type="text" id="task-name" name="task_name" placeholder="Enter team name" required>
+                <input type="text" id="team-name" name="team_name" placeholder="Enter team name" required>
             </div>
 
             <button type="submit" class="submit-btn">Create a team</button>

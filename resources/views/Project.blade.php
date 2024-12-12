@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="Auth.js"></script>
+    <script src="AuthData.js"></script>
+    <script src="LoginCheck.js"></script>
+    <script src="{{asset('logout.js') }}"></script>
+    <script src="{{asset('testlogout.js') }}"></script>
+    <script> window.onload = function() {
+        document.getElementById("id").value = userId;
+      };  </script>
     <title>Project Form</title>
     <style>
         body {
@@ -85,6 +93,7 @@
         <h2>Create a Project</h2>
         <form action="createproject" method="post">
             @csrf
+            <input type="hidden" id="id" name="UserId" >
             <div class="form-group">
                 <label for="task-name">Project Name</label>
                 <input type="text" id="task-name" name="title" placeholder="Enter project name" required>
@@ -93,7 +102,7 @@
                 <label for="task-description">Project Description</label>
                 <textarea id="task-description" name="description" placeholder="Enter project description" required></textarea>
             </div>
-            <button type="submit" class="submit-btn">Create Project</button>
+            <button type="submit" class="submit-btn" >Create Project</button>
         </form>
      @error('title')
         {{$message}}
@@ -103,4 +112,5 @@
      @enderror
     </div>
 </body>
+
 </html>

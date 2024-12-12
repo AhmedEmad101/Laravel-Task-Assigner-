@@ -70,7 +70,7 @@
         <div class="row mt-4">
             <div class="col-lg-4 col-md-6 col-sm-12 text-center">
                 <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
+                    <img src="tasksimg.png" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">My Tasks</h5>
                         <p class="card-text">Learn more about our mission and values.</p>
@@ -80,7 +80,7 @@
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12 text-center">
                 <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
+                    <img src="projectimg.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">My Projects</h5>
                         <p class="card-text">Explore the services we offer to our clients.</p>
@@ -90,7 +90,7 @@
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12 text-center">
                 <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
+                    <img src="teamimg.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">My Teams</h5>
                         <p class="card-text">Get in touch with us for inquiries and support.</p>

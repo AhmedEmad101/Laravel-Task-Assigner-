@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Team;
+use App\Models\Subscription;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TeamRequest;
 use Illuminate\Http\Request;
 
-class TeamController extends Controller
+class SubscriptionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,19 +27,15 @@ class TeamController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TeamRequest $request)
+    public function store(Request $request)
     {
-
-        Team::create($request->validated());
-        //return redirect('home')->with('success', 'User created successfully');
-        return response()->json(['done']);
+        //
     }
-
 
     /**
      * Display the specified resource.
      */
-    public function show(Team $team)
+    public function show(Subscription $subscription)
     {
         //
     }
@@ -48,7 +43,7 @@ class TeamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Team $team)
+    public function edit(Subscription $subscription)
     {
         //
     }
@@ -56,7 +51,7 @@ class TeamController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Team $team)
+    public function update(Request $request, Subscription $subscription)
     {
         //
     }
@@ -64,7 +59,7 @@ class TeamController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Team $team)
+    public function destroy(Subscription $subscription)
     {
         //
     }
