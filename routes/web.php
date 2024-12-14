@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaypalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SmsController;
@@ -22,4 +23,7 @@ Route::view('adminallusers','PartialViews.admin.allusers');
 Route::view('test','Test.login');
 /////////////////////////////////////////
 Route::get('send', [SmsController::class, 'send']);
+route::get('Pay',[PaypalController::class,'Payment']);
+route::get('PaymentSuccess',[PaypalController::class,'PaymentSuccess'])->name('PS');
+route::get('PaymentCancel',[PaypalController::class,'PaymentCancel'])->name('PC');
 ///////////////////////////////////////////////////////////////
