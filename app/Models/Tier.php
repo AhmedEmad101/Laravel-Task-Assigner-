@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tier extends Model
 {
-    //
+   protected $fillable =
+   [
+    'name',
+    'price',
+    ];
+
 }

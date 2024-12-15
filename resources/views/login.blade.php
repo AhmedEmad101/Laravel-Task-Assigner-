@@ -63,6 +63,7 @@
                 // Store the token in localStorage
                 localStorage.setItem('access_token', result.access_token);
                 localStorage.setItem('id', result.id);
+                sessionStorage.setItem('userid', result.id);
                 localStorage.setItem('name', result.name);
                 localStorage.setItem('role', result.role);
                 // Redirect to dashboard or any protected route

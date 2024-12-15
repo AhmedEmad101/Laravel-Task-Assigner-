@@ -3,32 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
+use App\Models\Tier;
 use Srmklive\PayPal\Services\ExpressCheckout;
+use Carbon\Carbon;
 class PaypalController extends Controller
 {
-  public function Payment(Request $request)
+
+
+  public function Payment($id , Request $request)
   {
-    $id = 1;
-    $x = 50;
+    $tier = Tier::find($id);
+    session()->put("uid", $request->input("UserId"));
     $data = [];
     $data['items'] = [
         [
-            'name' => 'Buying the Property',
-            'price' => '50',
-            'desc'  => 'Buying Property',
+            'name' => 'Subscrption tier '.$tier->name,
+            'price' => $tier->price,
+            'desc'  => 'Buying Subscrption',
             'qty' => 1
         ]
     ];
 
-    $data['invoice_id'] = $id;
+    $data['invoice_id'] = $tier->id;
     $data['invoice_description'] =
-    "Order {$data['invoice_id']} Invoice {$x}
-    For {$x},
+    "Order {$data['invoice_id']} Invoice {$tier->price}
+    For {$tier->price},
        ";
-    $data['return_url'] = 'http://localhost/TaskAssigner/public/PaymentSuccess';
+    $data['return_url'] = 'http://localhost/TaskAssigner/public/PaymentSuccess/'. $tier->id;
     $data['cancel_url'] = route('PC');
-    $data['total'] = 50;
+    $data['total'] = $tier->price;
 
     $provider = new ExpressCheckout;
 
@@ -42,14 +47,24 @@ public function PaymentCancel()
     {
         return response()->json('PaymentCanceled',402);
     }
-    public function PaymentSuccess(Request $request)
+    public function PaymentSuccess(Request $request,$tier)
     {
+        $date = Carbon::now();
 
         $provider = new ExpressCheckout;
         $response = $provider->getExpressCheckoutDetails($request->token);
         if(in_array(strtoupper($response['ACK']),['SUCCESS','SUCCESSWITHWARNING']))
         {
-           return response()->json('Successful Payment Your Payment on the Property has been done successfully',200);
+           $userid = session()->get('uid');
+           $Subscription = Subscription::create(
+            [
+                'user_Id'=> $userid,
+                'tier_id'=> $tier,
+                'expires_at'=>$date->addMonth()
+            ]
+        );
+        $Subscription->save();
+           return response()->json($Subscription,200);
         }
         else{
            return response()->json('failed payment', 402);

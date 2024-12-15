@@ -15,11 +15,12 @@ class TierSeeder extends Seeder
      */
     public function run(): void
     {
-        $Tiers = ['Gold' , 'silver','bronze'];
-       foreach ($Tiers as $tier) {
+        $Tiers = ['gold'=>100 , 'silver'=>70,'bronze'=>35];
+       foreach ($Tiers as $tier => $value) {
 
             DB::table('tiers')->insert([
-                'name' => $tier
+                'name' => $tier,
+                'price'=>$value
                 ]);
         }
     }

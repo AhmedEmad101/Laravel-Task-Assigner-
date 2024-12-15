@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\Tier;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,13 +24,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        view()->composer(['AllProjects','admin','PartialViews.admin.allusers'], function ($view) {
+        view()->composer(['AllProjects','admin','PartialViews.admin.allusers','subscriptions'], function ($view) {
 
             $Project = Project::all();
             $user = User::all();
             $task = Task::all();
             $team = Team::all();
-            $view->with(['Project'=>$Project,'user'=>$user ,'task'=>$task ,'team'=>$team]);
+            $tier = Tier::all();
+            $view->with(['Project'=>$Project,'user'=>$user ,'task'=>$task ,'team'=>$team,'tier'=>$tier]);
         });
     }
 }

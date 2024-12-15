@@ -18,11 +18,13 @@ class AuthController extends Controller
     public function Login(Request $request)
     {
       $user = User::where('email',$request->email)->first();
+      session()->put('userid',$user->id);
       if(!$user||!Hash::check($request->password,$user->password))
       {
           return response()->json(['error'=>'Your login credentials are wrong'],422);
       }
       $device = substr($request->userAgent() ??'', 0,255);
+session()->put('email',$request->email);
       return response()->json(
           ['access_token'=>$user->createToken($device)->plainTextToken
           ,'id'=>$user->id

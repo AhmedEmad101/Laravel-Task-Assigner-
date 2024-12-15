@@ -8,26 +8,32 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Optional Bootstrap Icons (for using icons in navbar) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="Auth.js"></script>
+    <script src="AuthData.js"></script>
+    <script src="LoginCheck.js"></script>
+    <script src="{{asset('logout.js') }}"></script>
+    <script src="{{asset('testlogout.js') }}"></script>
+    <script> window.onload = function() {
+        document.getElementById("id").value = userId;
+      };  </script>
 </head>
 <body>
 
     <div class="subscription-container">
 
-        <div class="subscription bronze">
-            <h2>Bronze</h2>
+        @foreach ($tier as $t)
+        <div class="subscription {{$t->name}}">
+            <h2>{{$t->name}}</h2>
             <p>Basic plan for getting started.</p>
-            <button class="btn btn-primary" onclick="location.href=''">Buy</button>
+            <form action="Pay/{{$t->id}}" method="post">
+                @csrf
+            <input type="hidden" id="tierid" value="{{$t->id}}" name="tier">
+            <input type="hidden" id="id" name="UserId" >
+            <button class="btn btn-primary" >Buy for {{$t->price}} $</button>
+        </form>
         </div>
-        <div class="subscription silver">
-            <h2>Silver</h2>
-            <p>Enhanced features for growing needs.</p>
-            <button class="btn btn-primary" onclick="location.href=''">Buy</button>
-        </div>
-        <div class="subscription gold">
-            <h2>Gold</h2>
-            <p>Premium plan with all features included.</p>
-            <button class="btn btn-primary" onclick="location.href=''">Buy</button>
-        </div>
+        @endforeach
     </div>
 </body>
+<script> console.log(userId);</script>
 </html>
