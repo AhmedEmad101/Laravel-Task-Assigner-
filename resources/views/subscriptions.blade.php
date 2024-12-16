@@ -18,7 +18,12 @@
       };  </script>
 </head>
 <body>
-
+@if (session('firstsub'))
+{{session('firstsub')}}
+@endif
+@if (session('alreadysub'))
+{{session('alreadysub')}}
+@endif
     <div class="subscription-container">
 
         @foreach ($tier as $t)
@@ -30,8 +35,12 @@
             <input type="hidden" id="tierid" value="{{$t->id}}" name="tier">
             <input type="hidden" id="id" name="UserId" >
             <button class="btn btn-primary" >Buy for {{$t->price}} $</button>
+            @can('update',Auth::user(),$t->id)
+                <p>Yes he can</p>
+            @endcan
         </form>
         </div>
+
         @endforeach
     </div>
 </body>

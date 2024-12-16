@@ -3,12 +3,16 @@
 namespace App\Providers;
 
 //use Illuminate\Support\ServiceProvider;
+
+use App\Models\Subscription;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Models\User;
+use App\Policies\SubscriptionPolicy;
 class AuthServiceProvider extends ServiceProvider
 { protected $policies = [
     // Example: App\Models\SomeModel::class => App\Policies\SomeModelPolicy::class
+    Subscription::class => SubscriptionPolicy::class
 ];
     public function register(): void
     {
@@ -28,5 +32,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('is-admin', function (User $user) {
             return $user->IsAdmin;
         });
+
+
     }
 }

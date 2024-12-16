@@ -10,4 +10,8 @@ public function creator()
 {
     return $this->belongsTo(Project::class , 'Project_ID');
 }
+public function UserTasks()
+{
+return $this->hasMany(WorkOn::class ,'task_id');
+}
 }

@@ -4,19 +4,23 @@ use App\Http\Controllers\PaypalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SmsController;
+use App\Http\Controllers\TierController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
 Route::view('admin','admin');
 /////////////////////////////////////////////////////
 Route::get('/', function () {
     return view('welcome');
 });
-$pages = ['home','task', 'project','team','login','subscriptions','admin'];
+Route::get('tier', [TierController::class, 'index']);
+$pages = ['home','task', 'project','team','login','subscriptions','admin','mytasks'];
 foreach ($pages as $page) {
     Route::view($page, $page);
 }
 //createproject
 Route::post('createproject', [ProjectController::class, 'store']);
 Route::get('allprojects', [ProjectController::class, 'index']);
+Route::get('mytasks', [UserController::class, 'task']);
 Route::view('AllProjects','AllProjects');
 //////////////////////////////////////////////////////
 Route::view('adminallusers','PartialViews.admin.allusers');

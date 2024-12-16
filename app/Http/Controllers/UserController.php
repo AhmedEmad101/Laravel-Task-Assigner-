@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-   public function index()
+   public function index()//test function
    {
     $User = User::where('id',1)->first();
     return $User->UserTasks->pluck('name');
@@ -24,5 +24,17 @@ class UserController extends Controller
    {
       $user = Auth::user();
     return response()->json($user);
+   }
+   public function subscripe()
+   {
+    $User = User::where('id',operator: 12)->first();
+
+    return response()->json( $User->Subscription->Tier->name);
+   }
+   public function task()
+   {
+    $email = session()->get('email');
+    $User = User::where('email',$email)->first();
+    return view('mytasks');
    }
 }

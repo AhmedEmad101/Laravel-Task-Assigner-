@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Models\Tier;
+use App\Models\User;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use Carbon\Carbon;
 class PaypalController extends Controller
@@ -56,6 +57,9 @@ public function PaymentCancel()
         if(in_array(strtoupper($response['ACK']),['SUCCESS','SUCCESSWITHWARNING']))
         {
            $userid = session()->get('uid');
+           $user = User::find($userid);
+           $usertier = Tier::find($tier);
+           if($user->Subscription->Tier->id != $tier){
            $Subscription = Subscription::create(
             [
                 'user_Id'=> $userid,
@@ -64,13 +68,17 @@ public function PaymentCancel()
             ]
         );
         $Subscription->save();
-           return response()->json($Subscription,200);
+
+        return redirect('tier')->with('firstsub','You have subscriped in '.$usertier->name.' tier subscription');
+    }
+    return redirect('tier')->with('alreadysub','You already have '.$usertier->name.' tier subscription');
         }
         else{
            return response()->json('failed payment', 402);
 
 
     }
-  }
 
+
+}
 }

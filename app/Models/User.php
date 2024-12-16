@@ -55,6 +55,14 @@ class User extends Authenticatable
     {
        return $this->role === 2;
     }
+    public function Subscription()
+    {
+        return $this->hasOne(Subscription::class ,'user_Id');
+    }
+    public function WorkOnTask()
+    {
+        return $this->hasMany(WorkOn::class ,'user_Id' );
+    }
 
 
 

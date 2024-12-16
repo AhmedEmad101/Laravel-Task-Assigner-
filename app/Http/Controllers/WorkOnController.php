@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tier;
+use App\Models\WorkOn;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TierController extends Controller
+class WorkOnController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       return view("subscriptions");
+        //
     }
 
     /**
@@ -35,7 +35,7 @@ class TierController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Tier $tier)
+    public function show(WorkOn $workOn)
     {
         //
     }
@@ -43,7 +43,7 @@ class TierController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tier $tier)
+    public function edit(WorkOn $workOn)
     {
         //
     }
@@ -51,7 +51,7 @@ class TierController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tier $tier)
+    public function update(Request $request, WorkOn $workOn)
     {
         //
     }
@@ -59,7 +59,7 @@ class TierController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tier $tier)
+    public function destroy(WorkOn $workOn)
     {
         //
     }

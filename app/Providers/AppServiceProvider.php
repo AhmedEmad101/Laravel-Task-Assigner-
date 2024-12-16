@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        view()->composer(['AllProjects','admin','PartialViews.admin.allusers','subscriptions'], function ($view) {
+        view()->composer(['AllProjects','admin','PartialViews.admin.allusers','subscriptions','mytasks'], function ($view) {
 
             $Project = Project::all();
             $user = User::all();
