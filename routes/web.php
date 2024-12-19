@@ -15,7 +15,7 @@ Route::get('/', function () {
 Route::get('tier', [TierController::class, 'index']);
 $pages = ['home','task', 'project','team','login','subscriptions','admin','mytasks'];
 foreach ($pages as $page) {
-    Route::view($page, $page);
+    Route::view($page, $page);//->middleware('throttle:3,60');
 }
 //createproject
 Route::post('createproject', [ProjectController::class, 'store']);

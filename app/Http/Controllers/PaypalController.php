@@ -69,9 +69,9 @@ public function PaymentCancel()
         );
         $Subscription->save();
 
-        return redirect('tier')->with('firstsub','You have subscriped in '.$usertier->name.' tier subscription');
+        return redirect()->back()->with('firstsub','You have subscriped in '.$usertier->name.' tier subscription');
     }
-    return redirect('tier')->with('alreadysub','You already have '.$usertier->name.' tier subscription');
+    return redirect()->back()->with('alreadysub','You already have '.$usertier->name.' tier subscription');
         }
         else{
            return response()->json('failed payment', 402);

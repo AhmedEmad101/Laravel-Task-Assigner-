@@ -14,13 +14,14 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 ////////////Authentication ///////////////////////////////////
 //////////////////////////////////////////////////////////////
-route::post('login',[AuthController::class,'Login'])->name('loginapi');//user and admin check;
+route::post('login',[AuthController::class,'Login'])->name('loginapi');
 route::post('logout',[AuthController::class,'logout']);
 route::get('user/{id}',action: [UserController::class,'UserInfo']);
 route::get('test/{id}',action: [UserController::class,'test'])->middleware('auth:sanctum','admin');//user and admin check
 route::get('test',action: [UserController::class,'test'])->middleware('auth:sanctum' , Admin::class);
 route::get('tier',action: [UserController::class,'subscripe'])->middleware('auth:sanctum');
 route::get('usertasks/{id}',action: [UserController::class,'task']);
+route::get('testtaskpolicy/{task}',action: [UserController::class,'taskpolicy'])->middleware('auth:sanctum');
 ////////////////////////////////////////////////////////
 Route::get('alltasks', [TaskController::class, 'index']);
 Route::get('allusers', [UserController::class, 'index']);

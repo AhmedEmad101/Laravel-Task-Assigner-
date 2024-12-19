@@ -1,3 +1,4 @@
+const logoutButton = document.getElementById('logoutbutton');
 function logout() {
     // Remove the token and user ID from local storage
    // localStorage.removeItem('access_token');
