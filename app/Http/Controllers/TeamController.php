@@ -14,7 +14,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
+       return view("myteams");
     }
 
     /**
@@ -31,7 +31,12 @@ class TeamController extends Controller
     public function store(TeamRequest $request)
     {
 
-        Team::create($request->validated());
+        $Creator = session()->get('uid');
+        $Team = Team::create([
+            'name'=> $request->name,
+            'leader_Id'=> $Creator,
+
+        ]);
         //return redirect('home')->with('success', 'User created successfully');
         return response()->json(['done']);
     }

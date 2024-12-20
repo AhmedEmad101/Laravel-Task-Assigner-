@@ -16,13 +16,13 @@ class TeamSeeder extends Seeder
      */
     public function run(): void
     {
-        $id = 1;
+        $id = 2;
         for( $i = 0; $i < 10; $i++ ) {
             DB::table('teams')->insert([
-                'id'=> $id,
-                'Leader_Id'=> $id,
-                'Project_Id' =>$id,
-                'name' =>'test'
+                'name' =>'test',
+                'leader_Id'=> 1,
+                'member_Id' =>$id,
+
             ]);
             $id++;
     }

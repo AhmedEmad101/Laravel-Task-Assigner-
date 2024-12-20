@@ -14,8 +14,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 ////////////Authentication ///////////////////////////////////
 //////////////////////////////////////////////////////////////
-route::post('login',[AuthController::class,'Login'])->name('loginapi');
-route::post('logout',[AuthController::class,'logout']);
+route::post('login',[AuthController::class,'login'])->name('loginapi');
+//route::post('logout',[AuthController::class,'logout']);
 route::get('user/{id}',action: [UserController::class,'UserInfo']);
 route::get('test/{id}',action: [UserController::class,'test'])->middleware('auth:sanctum','admin');//user and admin check
 route::get('test',action: [UserController::class,'test'])->middleware('auth:sanctum' , Admin::class);

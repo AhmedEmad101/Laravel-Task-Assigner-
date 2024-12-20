@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TaskRequest;
 use Database\Seeders\TaskSeeder;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -14,7 +16,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return Task::all();
+        return view('mytasks');
     }
 
     /**
@@ -46,15 +48,19 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(TaskRequest $request, Task $task)
     {
-        //
+        if (Gate::denies('edit-task', $task)) {
+            return response()->json(['error' => 'You are not authorized to edit this task.'], 403);
+        }
+        $task->update($request->all());
+
     }
 
     /**

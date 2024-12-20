@@ -14,7 +14,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Project::paginate(5);
+
+       return view('AllProjects');
     }
 
     /**
@@ -35,7 +36,7 @@ class ProjectController extends Controller
        $description = $request->description;
        $Project = Project::create(['Creator'=> $Creator ,'title'=> $title,'description'=> $description]);
        $Project->save();
-       return response()->json(['successfully added'.$title.' '. $description]);
+       return redirect()->route('allprojects.index');
 
     }
 
@@ -68,6 +69,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return redirect()->back();
     }
 }

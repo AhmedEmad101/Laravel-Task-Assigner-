@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
 {
-   protected $fillable = ['Leader_Id','Project_Id','name'];
+   protected $fillable = ['name','leader_Id','member_id'];
 
 
 
@@ -17,6 +17,6 @@ class Team extends Model
    /////////////////relationships
    public function Leader()
    {
-    return $this->belongsTo(User::class,'Leader_Id');
+    return $this->belongsTo(User::class,'leader_Id');
    }
 }

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 class AuthController extends Controller
 {
-    public function Signup(Request $request)
+    public function Signup(Request $request)//not tested yet
     {
       $user = User::create($request->all());
         //  return response()->json($user);
@@ -37,13 +37,33 @@ session()->put('email',$request->email);
       {
           // Revoke the current user's token
           //$request->user()->currentAccessToken()->delete();
-          if ($request->user()) {
-              $request->user()->currentAccessToken()->delete();
-          }
+
+              $request->session()->flush();
+
 
           // Optionally return a response
-          return response()->json([
-              'message' => 'Logged out successfully'
-          ], 200);
+          return redirect('login');
+      }
+      public function login2(Request $request)//session based auth
+      {
+          // Validate the login form data
+          $validated = $request->validate([
+              'email' => 'required|email',
+              'password' => 'required',
+          ]);
+
+          // Attempt to authenticate the user
+          if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+              // Authentication successful, store the user ID in the session
+              $userId = Auth::user()->id;
+              dd( Auth::user()->id);
+              session(['user_id' => $userId]);  // Store user ID in the session
+
+              // Optionally redirect to a dashboard or home page
+              return view('home'); // Adjust the route name accordingly
+          }
+
+          // Authentication failed, redirect back with an error message
+          return back()->withErrors(['email' => 'Invalid credentials']);
       }
 }

@@ -11,22 +11,23 @@
         <a class="nav-link active" aria-current="page" href="home">Home</a>
     </li>
     <div class="container">
-        <h1 class="page-title">Projects List</h1>
-@foreach ($PfProjects as $p)
+        <h1 class="page-title">Teams List</h1>
+@foreach ($PfTeams as $t)
 
 
         <div class="projects-list">
             <!-- Example of a single project entry -->
             <div class="project-item">
-                <h3 class="project-name">{{$p->title}}</h3>
-                <p class="project-description"> {{$p->description}}</p>
+                <h3 class="project-name">{{$t->name}}</h3>
+                <p class="project-description"> {{$t->leader_Id}}</p>
+                <p class="project-description"> {{$t->member_id}}</p>
                 <div class="project-actions">
 
                     <button class="edit-btn">Edit</button>
-                    <form id ="delete-form" action="delete/{{$p->id}}" method="POST">
+                    <form id ="delete-form" action="delete/{{$t->id}}" method="POST">
                         @method('DELETE')
                         @csrf
-                    <button class="delete-btn"  onclick="confirmDelete({{ $p->id }})">Delete</button>
+                    <button class="delete-btn"  onclick="confirmDelete({{ $t->id }})">Delete</button>
                 </form>
                 </div>
                 <script>

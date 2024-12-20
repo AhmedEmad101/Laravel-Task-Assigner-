@@ -43,9 +43,14 @@
                     <li class="nav-item">
 
                         @Auth
+                        <form action="logout" method="post">
+                            @csrf
                         <button id="logoutbutton" >Logout</button>
+                    </form>
                         @else
-                        <a class="nav-link" href="login"><span id="lgn">Login</span></a>
+                        <form action="logout" method="post">
+                            @csrf
+                        <button id="logoutbutton" >Logout</button>
                         @endif
 
                     </li>
@@ -94,7 +99,7 @@
                     <div class="card-body">
                         <h5 class="card-title">My Teams</h5>
                         <p class="card-text">Get in touch with us for inquiries and support.</p>
-                        <a href="#" class="btn btn-outline-primary">View</a>
+                        <a href="allteams" class="btn btn-outline-primary">View</a>
                     </div>
                 </div>
             </div>

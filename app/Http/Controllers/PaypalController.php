@@ -59,6 +59,7 @@ public function PaymentCancel()
            $userid = session()->get('uid');
            $user = User::find($userid);
            $usertier = Tier::find($tier);
+
            if($user->Subscription->Tier->id != $tier){
            $Subscription = Subscription::create(
             [
@@ -73,6 +74,8 @@ public function PaymentCancel()
     }
     return redirect()->back()->with('alreadysub','You already have '.$usertier->name.' tier subscription');
         }
+
+
         else{
            return response()->json('failed payment', 402);
 

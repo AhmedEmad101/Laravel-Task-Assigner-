@@ -11,6 +11,6 @@ class Subscription extends Model
 
    public function Tier()
    {
-    return $this->belongsTo(Tier::class,'tier_id');
+    return $this->belongsTo(Tier::class,'tier_id')->withDefault();
    }
 }

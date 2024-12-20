@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
-{protected $fillable = ['Project_ID','name','description'];
-public function creator()
+{protected $fillable = ['Creator','Project_ID','name','description'];
+public function Project()
 {
     return $this->belongsTo(Project::class , 'Project_ID');
 }

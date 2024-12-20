@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('Leader_Id');
-            $table->unsignedBigInteger('Project_Id');
             $table->string('name');
+            $table->unsignedBigInteger('leader_Id');
+            $table->unsignedBigInteger('member_id')->nullable(true);
             $table->foreign('Leader_Id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('Project_Id')->references('id')->on('projects')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('member_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

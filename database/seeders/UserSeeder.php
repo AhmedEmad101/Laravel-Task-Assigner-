@@ -13,6 +13,11 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('users')->insert([
+            'name' => 'ahmed',
+            'email' => 'ahmed@email.com',
+            'password' => Hash::make('123456'),
+        ]);
         for($x = 0;$x<10;$x++){
             DB::table('users')->insert([
                 'name' => Str::random(10),
@@ -20,11 +25,6 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
             ]);
         }
-        DB::table('users')->insert([
-            'name' => 'ahmed',
-            'email' => 'ahmed@email.com',
-            'password' => Hash::make('123456'),
-        ]);
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'admin@email.com',

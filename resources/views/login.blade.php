@@ -15,8 +15,8 @@
 
             <form action="#" method="POST" id="login-form">
                 <div class="textbox">
-                    <input type="hidden" name="useremail">
-                    <input type="text" placeholder="Username" name="email" required>
+
+                    <input type="text" placeholder="Email" name="email" required>
                 </div>
                 <div class="textbox">
                     <input type="password" placeholder="Password" name="password" required>
