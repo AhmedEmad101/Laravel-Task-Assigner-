@@ -26,9 +26,10 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer(['AllProjects','admin','PartialViews.admin.allusers','subscriptions','mytasks','myteams'], function ($view) {
             $Creator = session()->get('uid');
-            $Profileprojects = Project::where('Creator',$Creator)->get();
+            $Creator2 = session()->get('Creator');
+            $Profileprojects = Project::where('Creator',$Creator2)->get();
             $Profiletasks = Task::where('Creator',$Creator)->get();
-            $Profileteams = Team::where('leader_Id',$Creator)->orWhere('member_id',$Creator)->get();
+            $Profileteams = Team::where('leader_Id',$Creator2)->orWhere('member_id',$Creator2)->get();
             $Project = Project::all();
             $user = User::all();
             $task = Task::all();

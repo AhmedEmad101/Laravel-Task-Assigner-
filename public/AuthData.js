@@ -1,3 +1,4 @@
+import axios from 'axios';
 let usertoken = localStorage.getItem('access_token');
 let userId = localStorage.getItem('id'); // Assuming the user ID is stored in local storage
 let username = localStorage.getItem('name');
@@ -11,7 +12,7 @@ let username = localStorage.getItem('name');
         }).then(response => {
             document.getElementById('idid').innerText = response.data.id
             document.getElementById('user-name').innerText = response.data.name;
-            document.getElementById('email').innerText = response.data.email;
+
         }).catch(error => {
             console.error('Error fetching user data', error);
         });

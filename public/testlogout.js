@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     localStorage.removeItem('access_token');
 
                     // Redirect to the login page or any specified page
-                    window.location.href = 'index';
+                    window.location.href = 'login';
                     // Adjust this as necessary
                 } else {
                     const result = await response.json();

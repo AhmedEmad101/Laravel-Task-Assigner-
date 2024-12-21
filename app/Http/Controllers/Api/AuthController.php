@@ -24,7 +24,7 @@ class AuthController extends Controller
           return response()->json(['error'=>'Your login credentials are wrong'],422);
       }
       $device = substr($request->userAgent() ??'', 0,255);
-session()->put('email',$request->email);
+      Auth::login($user);
       return response()->json(
           ['access_token'=>$user->createToken($device)->plainTextToken
           ,'id'=>$user->id
@@ -66,4 +66,5 @@ session()->put('email',$request->email);
           // Authentication failed, redirect back with an error message
           return back()->withErrors(['email' => 'Invalid credentials']);
       }
+
 }

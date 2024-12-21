@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeamRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -12,9 +13,11 @@ class TeamController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-       return view("myteams");
+        $Creator =$request->CreatorID;
+        session()->put("Creator", $Creator);
+        return view("myteams",);
     }
 
     /**

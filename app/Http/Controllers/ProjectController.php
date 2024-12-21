@@ -12,8 +12,10 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $Creator =$request->Authorid;
+        session()->put("Creator", $Creator);
 
        return view('AllProjects');
     }

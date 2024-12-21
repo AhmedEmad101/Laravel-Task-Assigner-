@@ -56,7 +56,7 @@ public function PaymentCancel()
         $response = $provider->getExpressCheckoutDetails($request->token);
         if(in_array(strtoupper($response['ACK']),['SUCCESS','SUCCESSWITHWARNING']))
         {
-           $userid = session()->get('uid');
+           $userid = session()->get('uid')??session()->get('Creator');
            $user = User::find($userid);
            $usertier = Tier::find($tier);
 

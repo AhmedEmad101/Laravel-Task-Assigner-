@@ -14,6 +14,10 @@
     <script src="LoginCheck.js"></script>
     <script src="{{asset('logout.js') }}"></script>
     <script src="{{asset('testlogout.js') }}"></script>
+    <script> window.onload = function() {
+        document.getElementById("Creatorid").value = userId;
+        document.getElementById("Authorid").value = userId;
+      };  </script>
 </head>
 <body>
     <!-- Navbar -->
@@ -29,7 +33,7 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="subscriptions">Subsription</a>
+                        <a class="nav-link active" aria-current="page" href="subscriptions">Subsriptions</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
@@ -42,16 +46,14 @@
                     </li>
                     <li class="nav-item">
 
-                        @Auth
+
                         <form action="logout" method="post">
                             @csrf
                         <button id="logoutbutton" >Logout</button>
                     </form>
-                        @else
-                        <form action="logout" method="post">
-                            @csrf
-                        <button id="logoutbutton" >Logout</button>
-                        @endif
+
+
+
 
                     </li>
                 </ul>
@@ -89,7 +91,11 @@
                     <div class="card-body">
                         <h5 class="card-title">My Projects</h5>
                         <p class="card-text">Explore the services we offer to our clients.</p>
-                        <a href="allprojects" class="btn btn-outline-primary">View </a>
+                        <form action="allmyprojects" method="GET">
+                            @csrf
+                            <input type="hidden" name="Authorid" id="Authorid">
+                        <button class="btn btn-outline-primary" type="submit">View </button>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -99,7 +105,11 @@
                     <div class="card-body">
                         <h5 class="card-title">My Teams</h5>
                         <p class="card-text">Get in touch with us for inquiries and support.</p>
-                        <a href="allteams" class="btn btn-outline-primary">View</a>
+                        <form action="allmyteams" method="POST">
+                            @csrf
+                            <input type="hidden" name="CreatorID" id="Creatorid">
+                        <button class="btn btn-outline-primary" type="submit">View </button>
+                    </form>
                     </div>
                 </div>
             </div>
