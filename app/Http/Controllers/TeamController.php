@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeamRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -74,6 +75,11 @@ class TeamController extends Controller
      */
     public function destroy(Team $team)
     {
-        //
+        if (Gate::denies('delete-team', $team))
+        {
+        abort(403);}
+        $team->delete();
+
+        return response()->json(['deleted successfully']);
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Subscription;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Models\User;
+use App\Models\Team;
 use App\Policies\SubscriptionPolicy;
 class AuthServiceProvider extends ServiceProvider
 { protected $policies = [
@@ -31,6 +32,9 @@ class AuthServiceProvider extends ServiceProvider
         // Define Gates
         Gate::define('is-admin', function (User $user) {
             return $user->IsAdmin;
+        });
+        Gate::define('delete-team', function (User $user, Team $team) {
+            return $user->id === $team->Leader->id;
         });
 
 

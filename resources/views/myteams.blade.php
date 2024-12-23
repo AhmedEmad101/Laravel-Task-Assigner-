@@ -22,13 +22,17 @@
                 <p class="project-description"> {{$t->leader_Id}}</p>
                 <p class="project-description"> {{$t->member_id}}</p>
                 <div class="project-actions">
-
+                    <form id ="" action="" method="POST">
+                        @csrf
+                    <button class="edit-btn"  onclick="">Add a member</button>
+                </form>
                     <button class="edit-btn">Edit</button>
                     <form id ="delete-form" action="delete/{{$t->id}}" method="POST">
                         @method('DELETE')
                         @csrf
                     <button class="delete-btn"  onclick="confirmDelete({{ $t->id }})">Delete</button>
                 </form>
+
                 </div>
                 <script>
                     function confirmDelete(projectId) {

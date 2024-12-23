@@ -29,3 +29,5 @@ Route::get('allprojects', [ProjectController::class, 'index']);
 ////////////////////////////////////////////////////////////////
 Route::post('send', [SmsController::class, 'send']);
 Route::post('createteam', [TeamController::class, 'store']);
+Route::delete('deleteteam/{team}', [TeamController::class, 'destroy'])->middleware('auth:sanctum');
+///////////////////////////////////////////////////////////////////////////

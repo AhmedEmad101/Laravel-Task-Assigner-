@@ -1,5 +1,5 @@
 
-if (userId) {
+if (userId != null) {
 
     document.addEventListener('DOMContentLoaded', function () {
         var button = document.getElementById('logoutbutton');

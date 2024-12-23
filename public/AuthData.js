@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 let usertoken = localStorage.getItem('access_token');
 let userId = localStorage.getItem('id'); // Assuming the user ID is stored in local storage
 let username = localStorage.getItem('name');
