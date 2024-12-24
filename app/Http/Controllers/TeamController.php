@@ -85,12 +85,13 @@ class TeamController extends Controller
     }
     public function ToTeamMember(Request $request)
     {
-     session()->Put('UserID',$request->User_ID);
-        dd($request->User_ID);
+     session()->Put('Leader_ID',$request->Leader_ID);
+     session()->Put('Team_Name',$request->Team_Name);
+     session()->Put('Team_ID',$request->Team_ID);
         return view('Member');
     }
     public function SearchUser(Request $request)
-    {
+    {$userid =  session()->get("Creator");
         if($request->ajax())
         {
             $data = User::where('role', 1)
@@ -104,7 +105,7 @@ class TeamController extends Controller
              $output = ' <table>
         <thead>
             <tr>
-                <th>Name</th>
+                <th >Name</th>
                 <th>ID</th>
             </tr>
         </thead>
@@ -112,13 +113,14 @@ class TeamController extends Controller
         foreach($data as $row)
         {$output.=
         '
-            <tr>
-                <td>'.$row->name.'</td>
-                <td>'.$row->id.'</td>
+            <tr><select><option id ="aaa" value = '.$row->name.'>
+                <td >'.$row->name.'</td></option>
+                <td>'.$row->id.'</td></select>
             </tr>
 
         </tbody>
     </table>
+    <script> document.getElementById("search_member_id").value = document.getElementById("aaa").value</script>
              ';
             }
 
@@ -131,14 +133,18 @@ class TeamController extends Controller
     return $output;
         }
 }
-    public function AddTeamMember(Team $team)
-    {
+    public function AddTeamMember(Team $team , Request $request)
+    {   $Member_Name = $request->search;
+        $Member = User::where('name',$Member_Name)->first();
+        $LeaderID = session()->get('Leader_ID');
+        $TeamName = session()->get('Team_Name');
         $team->create([
-            '',
-            '',
-            ''
+            'name'=>$TeamName,
+            'leader_Id'=>$LeaderID,
+            'member_id'=>$Member->id
         ]);
-        return redirect()->back();
+        $team->save();
+        return redirect()->back()->with('Success_add_member','user '.$Member_Name.'has been added to team '.$TeamName);
 
     }
 

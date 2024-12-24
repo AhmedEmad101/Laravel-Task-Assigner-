@@ -28,9 +28,9 @@ Route::delete('delete/{project}', [ProjectController::class, 'destroy']);
 Route::get('mytasks', [TaskController::class, 'index']);
 //////////////////////////////////////////////////////
 Route::post('allmyteams', [TeamController::class,'index']);
-Route::post('toteammember', [TeamController::class,'ToTeamMember']);
+Route::get('toteammember', [TeamController::class,'ToTeamMember']);
 Route::get('searchuser', [TeamController::class,'SearchUser']);
-Route::get('search2', [TeamController::class,'search2']);
+Route::get('addteammember/{team}', [TeamController::class,'AddTeamMember']);
 //////////////////////////////////////////////////////////
 Route::view('adminallusers','PartialViews.admin.allusers');
 Route::view('test','Test.login');

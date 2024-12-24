@@ -27,9 +27,11 @@
                 <p class="project-description"> {{$t->leader_Id}}</p>
                 <p class="project-description"> {{$t->member_id}}</p>
                 <div class="project-actions">
-                    <form id ="" action="" method="POST">
+                    <form  action="toteammember" method="GET">
                         @csrf
-                        <input type="hidden" name="User_ID" id="User_ID">
+                        <input type="hidden" name="Leader_ID"  value="{{$t->leader_Id}}">
+                        <input type="hidden" name="Team_ID"  value="{{$t->id}}">
+                        <input type="hidden" name="Team_Name"  value="{{$t->name}}">
                     <button class="edit-btn"  onclick="">Add a member</button>
                 </form>
                     <button class="edit-btn">Edit</button>

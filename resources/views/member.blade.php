@@ -92,7 +92,7 @@
 <body>
     <div class="task-form-container">
         <h2>Add a member</h2>
-        <form action="createproject" method="post">
+        <form action="addteammember/{{session('Team_ID')}}" method="GET">
             @csrf
             <input type="hidden" id="id" name="UserId" >
             <div class="form-group">
@@ -103,6 +103,11 @@
             <button type="submit" class="submit-btn" >Add member</button>
             <div id="search_list"></div>
         </form>
+        @if(session('Success_add_member'))
+    <script>
+        alert("{{ session('Success_add_member') }}");
+    </script>
+@endif
         </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -123,6 +128,18 @@
          //end of ajax call
         });
         });
+    </script>
+    <script>
+    function fillInput(row) {
+        // Get all cells in the clicked row
+        const cells = row.getElementsByTagName("td");
+
+        // Combine the text content of all cells
+        const rowContent = Array.from(cells).map(cell => cell.textContent).join(" | ");
+
+        // Set the combined content into the input field
+        document.getElementById("search_member_id").value = rowContent;
+      }
     </script>
 </body>
 
