@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeamRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -82,4 +83,63 @@ class TeamController extends Controller
 
         return response()->json(['deleted successfully']);
     }
+    public function ToTeamMember(Request $request)
+    {
+     session()->Put('UserID',$request->User_ID);
+        dd($request->User_ID);
+        return view('Member');
+    }
+    public function SearchUser(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = User::where('role', 1)
+    ->where(function ($query) use ($request) {
+        $query->where('id', $request->search)
+              ->orWhere('name', 'like', '%' . $request->search . '%');
+    })
+    ->get();
+             $output = '';
+             if(count($data)>0){
+             $output = ' <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>ID</th>
+            </tr>
+        </thead>
+        <tbody>';
+        foreach($data as $row)
+        {$output.=
+        '
+            <tr>
+                <td>'.$row->name.'</td>
+                <td>'.$row->id.'</td>
+            </tr>
+
+        </tbody>
+    </table>
+             ';
+            }
+
+}
+
+        else{
+            $output.='no results found';
+        }
+
+    return $output;
+        }
+}
+    public function AddTeamMember(Team $team)
+    {
+        $team->create([
+            '',
+            '',
+            ''
+        ]);
+        return redirect()->back();
+
+    }
+
 }

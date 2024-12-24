@@ -6,6 +6,11 @@
     <title>Projects List</title>
     <link rel="stylesheet" href="projectstyle.css">
 </head>
+<script>
+    window.onload = function(){
+        document.getElementById("User_ID").value = userId;
+    }
+</script>
 <body>
     <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="home">Home</a>
@@ -24,6 +29,7 @@
                 <div class="project-actions">
                     <form id ="" action="" method="POST">
                         @csrf
+                        <input type="hidden" name="User_ID" id="User_ID">
                     <button class="edit-btn"  onclick="">Add a member</button>
                 </form>
                     <button class="edit-btn">Edit</button>

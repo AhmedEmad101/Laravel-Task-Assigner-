@@ -11,6 +11,7 @@
     <script> window.onload = function() {
         document.getElementById("id").value = userId;
       };  </script>
+
     <title>Project Form</title>
     <style>
         body {
@@ -96,18 +97,33 @@
             <input type="hidden" id="id" name="UserId" >
             <div class="form-group">
                 <label for="task-name">Search member by ID or Name</label>
-                <input type="text" id="member_id" name="title" placeholder="Enter member's id or name" required>
+                <input type="text" id="search_member_id" name="search" placeholder="Enter member's id or name" required>
             </div>
 
             <button type="submit" class="submit-btn" >Add member</button>
+            <div id="search_list"></div>
         </form>
-     @error('title')
-        {{$message}}
-     @enderror
-     @error('description')
-     {{$message}}
-     @enderror
-    </div>
+        </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+         $('#search_member_id').on('keyup',function(){
+             var query= $(this).val();
+             $.ajax({
+                url:"searchuser",
+                type:"GET",
+                data:{'search':query},
+                success:function(data){
+                    $('#search_list').html(data);
+                }
+         });
+         //end of ajax call
+        });
+        });
+    </script>
 </body>
 
 </html>
