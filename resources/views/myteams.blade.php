@@ -24,8 +24,8 @@
             <!-- Example of a single project entry -->
             <div class="project-item">
                 <h3 class="project-name">{{$t->name}}</h3>
-                <p class="project-description"> {{$t->leader_Id}}</p>
-                <p class="project-description"> {{$t->member_id}}</p>
+                <p class="project-description"> Team Leader ID {{$t->leader_Id}}</p>
+                <p class="project-description">Team Member ID {{$t->member_id}}</p>
                 <div class="project-actions">
                     <form  action="toteammember" method="GET">
                         @csrf

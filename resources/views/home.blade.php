@@ -17,6 +17,7 @@
     <script> window.onload = function() {
         document.getElementById("Creatorid").value = userId;
         document.getElementById("Authorid").value = userId;
+        document.getElementById("TaskCreator").value = userId;
       };  </script>
 </head>
 <body>
@@ -36,13 +37,13 @@
                         <a class="nav-link active" aria-current="page" href="subscriptions">Subsriptions</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="about">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="contactus">Contact</a>
                     </li>
                     <li class="nav-item">
 
@@ -81,7 +82,11 @@
                     <div class="card-body">
                         <h5 class="card-title">My Tasks</h5>
                         <p class="card-text">Learn more about our mission and values.</p>
-                        <a href="mytasks" class="btn btn-outline-primary">View</a>
+                        <form action="mytasks" method="GET">
+                            @csrf
+                            <input type="hidden" name="TaskCreator" id="TaskCreator">
+                        <button class="btn btn-outline-primary" type="submit">View </button>
+                    </form>
                     </div>
                 </div>
             </div>

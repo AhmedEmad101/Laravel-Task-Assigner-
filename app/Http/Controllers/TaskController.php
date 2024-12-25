@@ -14,8 +14,9 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        session()->put('TaskCreator',$request->TaskCreator);
         return view('mytasks');
     }
 
