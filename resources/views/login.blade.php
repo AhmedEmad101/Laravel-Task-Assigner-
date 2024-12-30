@@ -74,7 +74,7 @@
                  }
                  else
                  {
-                    window.location.assign('admin');
+                    window.location.assign('GotoAdminPage');
                  }
 
                // window.location.href = 'dashboard';

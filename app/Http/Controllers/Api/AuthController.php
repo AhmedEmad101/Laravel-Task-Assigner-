@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AdminRequest;
 use App\Models\User;
 class AuthController extends Controller
 {
@@ -19,6 +20,7 @@ class AuthController extends Controller
     {
       $user = User::where('email',$request->email)->first();
       session()->put('userid',$user->id);
+      session()->put('role',$user->role);
       if(!$user||!Hash::check($request->password,$user->password))
       {
           return response()->json(['error'=>'Your login credentials are wrong'],422);
@@ -35,15 +37,14 @@ class AuthController extends Controller
     }
     public function logout(Request $request)
       {
-          // Revoke the current user's token
-          //$request->user()->currentAccessToken()->delete();
+        if ($request->user()) {
+            $request->user()->currentAccessToken()->delete();
+        }
 
-              $request->session()->flush();
+        return redirect('login');
+    }
 
 
-          // Optionally return a response
-          return redirect('login');
-      }
       public function login2(Request $request)//session based auth
       {
           // Validate the login form data
@@ -65,6 +66,10 @@ class AuthController extends Controller
 
           // Authentication failed, redirect back with an error message
           return back()->withErrors(['email' => 'Invalid credentials']);
+      }
+      public function GotoAdminPage(AdminRequest $request )
+      {
+        return view('admin');
       }
 
 }
