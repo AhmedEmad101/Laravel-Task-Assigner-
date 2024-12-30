@@ -6,7 +6,7 @@ function logout() {
     //localStorage.removeItem('name');
     localStorage.clear();
 
-
+console.log(logoutButton);
     // Optionally, notify the user or log out from the server
     axios.post('api/logout') // Only if you need to notify the server about logout
         .then(response => {
