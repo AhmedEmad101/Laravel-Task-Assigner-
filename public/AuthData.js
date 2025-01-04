@@ -10,8 +10,7 @@ let username = localStorage.getItem('name');
                 Authorization: `Bearer ${usertoken}`
             }
         }).then(response => {
-            document.getElementById('idid').innerText = response.data.id
-            document.getElementById('user-name').innerText = response.data.name;
+console.log('user logged in ')
 
         }).catch(error => {
             console.error('Error fetching user data', error);

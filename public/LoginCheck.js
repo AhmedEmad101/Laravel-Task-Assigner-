@@ -1,4 +1,4 @@
-
+userId = localStorage.getItem('id');
 if (userId != null) {
 
     document.addEventListener('DOMContentLoaded', function () {
