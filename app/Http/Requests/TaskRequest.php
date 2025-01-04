@@ -22,6 +22,7 @@ class TaskRequest extends FormRequest
     public function rules(): array
     {
         return [
+
             'name'=>['string','min:3','max:10'],
         ];
     }
