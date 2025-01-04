@@ -15,6 +15,10 @@
     </li>
     <div class="container">
         <h1 class="page-title">Tasks List</h1>
+        @if (session('user_assigned'))
+            {{session('user_assigned')}}
+
+        @endif
 @foreach ($PfTasks as $task)
 
 
@@ -24,8 +28,9 @@
                 <h3 class="project-name">Task {{$task->name}}</h3>
                 <p class="project-description"> {{$task->description}}</p>
                 <div class="project-actions">
-                    <button class="btn btn-primary" onclick="addFn({{$task->id}})">Assign to devoloper</button>
+
                 <div id="inputFields{{$task->id}}"></div>
+                <div id="button{{$task->id}}"></div>
                     <button class="edit-btn">Edit</button>
                     <form id ="delete-form" action="deletetask/{{$task->id}}" method="POST">
                         @method('DELETE')
@@ -33,6 +38,13 @@
                     <button class="delete-btn"  onclick="confirmDelete({{$task->id}})">Delete</button>
 
                 </form>
+                <form action="AssignTeamMember/{{$task->id}}" id="assignform{{$task->id}}" method="GET">
+                    @csrf
+                    <button class="btn btn-primary" id="assignbutton{{$task->id}}" onclick="addFn({{$task->id}})">Assign to devoloper</button>
+                    <input type="text" name="search_member_id" id="search_member_id">
+                    <div id="search_list"></div>
+
+            </form>
                 </div>
                 <script>
                     function confirmDelete(task) {
@@ -53,19 +65,9 @@
             @endforeach
         </div>
     </div>
-    <script>
-        function addFn(id) {
-            const divEle = document.getElementById("inputFields"+id);
-            const wrapper = document.createElement("div");
-            const iFeild = document.createElement("input");
-            iFeild.setAttribute("type", "text");
-            iFeild.setAttribute("placeholder", "Enter value");
-            iFeild.classList.add("input-field");
-            wrapper.appendChild(iFeild);
-            divEle.appendChild(wrapper);
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="searchuser.js"></script>
 
-        }
-    </script>
 </body>
 </html>
 

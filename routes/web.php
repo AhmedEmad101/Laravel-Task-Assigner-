@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\WorkOnController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SmsController;
@@ -35,6 +36,7 @@ Route::post('allmyteams', [TeamController::class,'index']);
 Route::get('toteammember', [TeamController::class,'ToTeamMember']);
 Route::get('searchuser', [TeamController::class,'SearchUser']);
 Route::get('addteammember/{team}', [TeamController::class,'AddTeamMember']);
+Route::get('AssignTeamMember/{task}', [WorkOnController::class,'store']);
 //////////////////////////////////////////////////////////
 Route::view('adminallusers','PartialViews.admin.allusers');
 Route::view('test','Test.login');

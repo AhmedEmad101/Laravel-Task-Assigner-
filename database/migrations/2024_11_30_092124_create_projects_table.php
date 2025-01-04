@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('Creator');
             $table->string('title');
             $table->string(column: 'description')->nullable(true);
-            $table->timestamps();
             $table->foreign('Creator')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamps();
         });
     }
 
