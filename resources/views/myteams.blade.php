@@ -21,7 +21,7 @@
 
 
         <div class="projects-list">
-            <!-- Example of a single project entry -->
+
             <div class="project-item">
                 <h3 class="project-name">{{$t->name}}</h3>
                 <p class="project-description"> Team Leader ID {{$t->leader_Id}}</p>
@@ -35,7 +35,7 @@
                     <button class="edit-btn"  onclick="">Add a member</button>
                 </form>
                     <button class="edit-btn">Edit</button>
-                    <form id ="delete-form" action="delete/{{$t->id}}" method="POST">
+                    <form id ="delete-form" action="***/{{$t->id}}" method="POST">
                         @method('DELETE')
                         @csrf
                     <button class="delete-btn"  onclick="confirmDelete({{ $t->id }})">Delete</button>
@@ -43,11 +43,11 @@
 
                 </div>
                 <script>
-                    function confirmDelete(projectId) {
+                    function confirmDelete(team) {
                         // Show a confirmation dialog before submitting the form
                         if (confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
                             // If confirmed, submit the form
-                            document.getElementById('delete-form' + projectId).submit();
+                            document.getElementById('delete-form' + team).submit();
                         }
                     }
                 </script>

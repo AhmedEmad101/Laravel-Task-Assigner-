@@ -16,7 +16,7 @@ Route::view('admin','admin')->middleware('auth:sanctum','admin');
 route::post('login2',[AuthController::class,'login2'])->name('loginapi');//test login 2
 route::post('logout',[AuthController::class,'logout']);
 Route::get('tier', [TierController::class, 'index']);
-$pages = ['home','task', 'project','team','login','subscriptions','admin','mytasks','myteams','AllProjects','member','about','contactus'];
+$pages = ['home', 'project','team','login','subscriptions','admin','mytasks','myteams','AllProjects','member','about','contactus'];
 foreach ($pages as $page) {
     Route::view($page, $page)->name($page);//->middleware('throttle:3,60');
 }
@@ -26,6 +26,9 @@ Route::get('allmyprojects', [ProjectController::class, 'index'])->name('allproje
 Route::delete('delete/{project}', [ProjectController::class, 'destroy']);
 ///////////////////////////////////////////////////////////////////////////////
 Route::get('mytasks', [TaskController::class, 'index']);
+Route::get('createtask', [TaskController::class, 'create']);
+Route::post('storetask', [TaskController::class, 'store']);
+Route::delete('deletetask/{task}', [TaskController::class, 'destroy']);
 //////////////////////////////////////////////////////
 Route::post('allmyteams', [TeamController::class,'index']);
 Route::get('toteammember', [TeamController::class,'ToTeamMember']);

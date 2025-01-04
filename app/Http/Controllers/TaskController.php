@@ -23,17 +23,24 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+        session()->put('ProjectId',$request->ProjectId);
         return view('Task');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        //
+        $Task_Creator_Id = session()->get('Creator');
+        $ProjectId = session()->get('ProjectId');
+        $name = $request->name;
+        $Task_Description = $request->task_description;
+        $Task = Task::create(['Creator'=>$Task_Creator_Id,'Project_ID'=>$ProjectId,'name'=>$name,'Description'=>$Task_Description]);
+        $Task->save();
+        return redirect('home')->with('task_created','Task Created successfully');
     }
 
     /**
@@ -69,6 +76,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return redirect()->back();
     }
 }

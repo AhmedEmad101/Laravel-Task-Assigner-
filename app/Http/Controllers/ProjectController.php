@@ -38,7 +38,7 @@ class ProjectController extends Controller
        $description = $request->description;
        $Project = Project::create(['Creator'=> $Creator ,'title'=> $title,'description'=> $description]);
        $Project->save();
-       return redirect()->route('allprojects.index');
+       return redirect('home')->with('project_created','Project Created successfully');
 
     }
 

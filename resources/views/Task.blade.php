@@ -83,10 +83,11 @@
 <body>
     <div class="task-form-container">
         <h2>Add a Task</h2>
-        <form action="#" method="post">
+        <form action="storetask" method="post">
+            @csrf
             <div class="form-group">
                 <label for="task-name">Task Name</label>
-                <input type="text" id="task-name" name="task_name" placeholder="Enter task name" required>
+                <input type="text" id="task-name" name="name" placeholder="Enter task name" required>
             </div>
             <div class="form-group">
                 <label for="task-description">Task Description</label>
@@ -94,6 +95,9 @@
             </div>
             <button type="submit" class="submit-btn">Add Task</button>
         </form>
+        @error('name')
+        {{$message}}
+     @enderror
     </div>
 </body>
 </html>
