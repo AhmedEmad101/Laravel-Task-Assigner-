@@ -37,6 +37,7 @@ Route::get('toteammember', [TeamController::class,'ToTeamMember']);
 Route::get('searchuser', [TeamController::class,'SearchUser']);
 Route::get('addteammember/{team}', [TeamController::class,'AddTeamMember']);
 Route::get('AssignTeamMember/{task}', [WorkOnController::class,'store']);
+route::get('workon',action: [WorkOnController::class,'index']);
 //////////////////////////////////////////////////////////
 Route::view('adminallusers','PartialViews.admin.allusers');
 Route::view('test','Test.login');

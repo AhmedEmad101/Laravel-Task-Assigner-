@@ -16,16 +16,26 @@
     <div class="container">
         <h1 class="page-title">Tasks List</h1>
         @if (session('user_assigned'))
+        <div class="alert alert-success">
             {{session('user_assigned')}}
+        </div>
 
         @endif
+        @error('user_Id')
+        {{$message}}
+        @enderror
+        @if ($errors->has('error'))
+    <div class="alert alert-danger">
+        {{ $errors->first('error') }}
+    </div>
+@endif
 @foreach ($PfTasks as $task)
 
 
         <div class="projects-list">
             <!-- Example of a single project entry -->
             <div class="project-item">
-                <h3 class="project-name">Task {{$task->name}}</h3>
+                <h3 class="project-name">ID <span id="{{$task->id}}">{{$task->id}}</span> Task {{$task->name}}</h3>
                 <p class="project-description"> {{$task->description}}</p>
                 <div class="project-actions">
 

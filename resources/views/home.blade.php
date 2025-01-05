@@ -21,6 +21,7 @@
         document.getElementById("Creatorid").value = userId;
         document.getElementById("Authorid").value = userId;
         document.getElementById("TaskCreator").value = userId;
+        document.getElementById("Assignmentorid").value = userId;
       };  </script>
 
 </head>
@@ -74,10 +75,13 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-12 text-center">
-                <h1>Welcome to Task Assigner , <span id="name"></span></h1>
+                <div><h1>Welcome to Task Assigner , <span id="name"></span></h1></div>
                 <p>This is the home page where you can learn more about us.</p>
                 <button class="btn btn-primary" onclick="location.href='team'">Create a team</button>
                 <button class="btn btn-primary" onclick="location.href='project'">Create a project</button>
+
+                     <button class="btn btn-primary" >Assignments</button>
+
                 <button class="btn btn-primary" onclick="location.href='send'">Send SMS</button>
             </div>
         </div>
@@ -88,14 +92,20 @@
                     <img src="task.png" class="card-img-top" alt="..." width="200" height="240">
                     <div class="card-body">
                         <h5 class="card-title">My Tasks</h5>
-                        <p class="card-text">Learn more about our mission and values.</p>
+                        <form action="workon" method="get">@csrf
+                            <input type="hidden" name="Assignment" id="Assignmentorid">
+                            <button class="btn btn-outline-primary" type="submit">Assignments </button>
+                        </form>
+
                         <form action="mytasks" method="GET">
                             @csrf
                             <input type="hidden" name="TaskCreator" id="TaskCreator">
                         <button class="btn btn-outline-primary" type="submit">View </button> <span id="alertBadge" class="badge" > @if (session('task_created'))
                            <div style="background-color: red"> <p>+1 here</p></div>
                             @endif</span>
+                            <p class="card-text">Learn more about our mission and values.</p>
                     </form>
+
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\SmsController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkOnController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Admin;
@@ -23,6 +24,7 @@ route::get('test',action: [UserController::class,'test'])->middleware('auth:sanc
 route::get('tier',action: [UserController::class,'subscripe'])->middleware('auth:sanctum');
 route::get('usertasks/{id}',action: [UserController::class,'task']);
 route::get('testtaskpolicy/{task}',action: [UserController::class,'taskpolicy'])->middleware('auth:sanctum');
+route::get('workon',action: [WorkOnController::class,'index']);
 ////////////////////////////////////////////////////////
 Route::get('alltasks', [TaskController::class, 'index']);
 Route::get('allusers', [UserController::class, 'index']);
