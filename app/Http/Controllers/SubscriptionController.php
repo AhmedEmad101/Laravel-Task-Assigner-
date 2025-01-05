@@ -11,9 +11,11 @@ class SubscriptionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $SubId = $request->SubId;
+        session()->put('SubId',$SubId);
+        return view('subscriptions');
     }
 
     /**

@@ -39,6 +39,7 @@ class AuthController extends Controller
       {
         if ($request->user()) {
             $request->user()->currentAccessToken()->delete();
+            session()->flush();
         }
 
         return redirect('login');

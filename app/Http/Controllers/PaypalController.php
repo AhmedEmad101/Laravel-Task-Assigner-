@@ -56,11 +56,10 @@ public function PaymentCancel()
         $response = $provider->getExpressCheckoutDetails($request->token);
         if(in_array(strtoupper($response['ACK']),['SUCCESS','SUCCESSWITHWARNING']))
         {
-           $userid = session()->get('uid')??session()->get('Creator');
+           $userid = session()->get('SubId');
            $user = User::find($userid);
            $usertier = Tier::find($tier);
-
-           if($user->Subscription->Tier->id != $tier){
+           if($user->Subscription->Tier->id != $tier && $user->Subscription->Tier->count() == 0){
            $Subscription = Subscription::create(
             [
                 'user_Id'=> $userid,
@@ -72,7 +71,7 @@ public function PaymentCancel()
 
         return redirect()->back()->with('firstsub','You have subscriped in '.$usertier->name.' tier subscription');
     }
-    return redirect()->back()->with('alreadysub','You already have '.$usertier->name.' tier subscription');
+    return redirect()->back()->with('alreadysub','You already have a ' .$user->Subscription->Tier->name .' subscription');
         }
 
 

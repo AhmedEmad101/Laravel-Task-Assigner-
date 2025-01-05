@@ -6,6 +6,7 @@ use App\Http\Controllers\WorkOnController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SmsController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TierController;
@@ -18,10 +19,11 @@ route::get('GotoAdminPage',[AuthController::class,'GotoAdminPage']);
 route::post('login2',[AuthController::class,'login2'])->name('loginapi');//test login 2
 route::post('logout',[AuthController::class,'logout']);
 Route::get('tier', [TierController::class, 'index']);
-$pages = ['home','task', 'project','team','login','subscriptions','admin','mytasks','myteams','AllProjects','member','about','contactus'];
+$pages = ['home','task', 'project','team','login','admin','mytasks','myteams','AllProjects','member','about','contactus'];
 foreach ($pages as $page) {
     Route::view($page, $page)->name($page);//->middleware('throttle:3,60');
 }
+Route::get('subscriptions', [SubscriptionController::class,'index']);
 //createproject
 Route::post('createproject', [ProjectController::class, 'store']);
 Route::get('allmyprojects', [ProjectController::class, 'index'])->name('allprojects.index');

@@ -31,7 +31,7 @@
     <td>{{ $w->task_id }}</td>
     <td>{{ $w->task->project->title }}</td>
     <td>{{ $w->task->name }}</td>
-    <td>{{ $w->created_at->diffForHumans() }}</td>
+    <td>{{ $w->created_at->diffForHumans()}}</td>
 </tr>
             @endforeach
         </tbody>

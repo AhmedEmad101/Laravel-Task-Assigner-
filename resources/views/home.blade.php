@@ -22,6 +22,7 @@
         document.getElementById("Authorid").value = userId;
         document.getElementById("TaskCreator").value = userId;
         document.getElementById("Assignmentorid").value = userId;
+        document.getElementById("SubId").value = userId
       };  </script>
 
 </head>
@@ -45,7 +46,12 @@
                         <a class="nav-link active" aria-current="page" href="home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="subscriptions">Subsriptions</a>
+                        <form action="subscriptions" method="GET">
+                            @csrf
+                            <input type="hidden" name="SubId" id="SubId">
+                        <button id="" >Subscriptions</button>
+
+                    </form>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="about">About</a>

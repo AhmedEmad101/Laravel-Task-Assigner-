@@ -21,7 +21,8 @@ class WorkOnSeeder extends Seeder
             DB::table('work_ons')->insert([
                 'user_Id'=> $id,
                 'project_id' =>$id,
-                'task_id' =>$id
+                'task_id' =>$id,
+                'created_at'=>now()
             ]);
             $id++;
     }
