@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-class TeamRequest extends FormRequest
+
+class ContactUsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,8 @@ class TeamRequest extends FormRequest
     public function rules(): array
     {
         return [
-
-           'name'=>['required','min:3','max:30'],
-
+            'email'=>['required','string','email'],
+            'message'=>['required','string','min:10','max:120']
         ];
     }
 }

@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
@@ -79,20 +81,33 @@
             background-color: #0056b3;
         }
     </style>
-
+<script>
+    var leaderId = localStorage.id;
+    window.onload = function(){
+   document.getElementById('leader_Id').value = leaderId;
+   }
+</script>
 </head>
 <body>
     <div class="task-form-container">
         <h2>Create a Team</h2>
-        <form action="createteam" method="post">
+        <form action="storeteam" method="POST">
             @csrf
             <div class="form-group">
-                <label for="task-name">Team name</label>
-                <input type="text" id="team-name" name="team_name" placeholder="Enter team name" required>
+                <label for="team-name">Team name</label>
+                <input type="hidden" name="leader_Id" id="leader_Id">
+                <input type="text" id="team-name" name="name" placeholder="Enter team name" required>
             </div>
 
             <button type="submit" class="submit-btn">Create a team</button>
         </form>
+        @error('name')
+        <div class="alert alert-danger">
+
+            {{$message}}
+        </div>
+        @enderror
     </div>
+
 </body>
 </html>

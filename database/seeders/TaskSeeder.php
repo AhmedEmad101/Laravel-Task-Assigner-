@@ -14,13 +14,14 @@ class TaskSeeder extends Seeder
      */
     public function run(): void
     {
-        for($x = 0;$x<10;$x++){
+        $faker = \Faker\Factory::create();
+        for($x = 1;$x<11;$x++){
 
             DB::table('tasks')->insert([
-                'Creator'=>1,
-                'Project_ID'=>1,
-                'name' => Str::random(10)
-                ,'description' => Str::random(10) ]);
+                'Creator'=>$x,
+                'Project_ID'=>rand(1,10),
+                'name' => $faker->sentence(3)
+                ,'description' => $faker->sentence(10) ]);
         }
     }
 }

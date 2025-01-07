@@ -6,7 +6,7 @@
     <title>Projects List</title>
     <link rel="stylesheet" href="projectstyle.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>body{background:forestgreen} </style>
+    <style>body{background:rgb(34, 71, 139)} </style>
 
 </head>
 <body>

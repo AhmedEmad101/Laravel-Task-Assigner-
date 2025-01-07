@@ -20,5 +20,6 @@ class AllSeeders extends Seeder
        $this->call(TierSeeder::class);
        $this->call(SubsriptionSeeder::class);
        $this->call(WorkOnSeeder::class);
+       $this->call(ContactUsSeeder::class);
     }
 }

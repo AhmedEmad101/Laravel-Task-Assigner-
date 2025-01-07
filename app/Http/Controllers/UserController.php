@@ -26,11 +26,11 @@ class UserController extends Controller
       $user = Auth::user();
     return response()->json($user);
    }
-   public function subscripe()
+   public function subscripe($id)
    {
-    $User = User::where('id',operator: 12)->first();
+    $User = User::where('id',$id)->first();
 
-    return response()->json( $User->Subscription->Tier->name);
+    return response()->json([ 'subscriptionName'=>$User->Subscription->Tier->name??404,'expires_at'=>$User->Subscription->expires_at]);
    }
    public function task()
    {

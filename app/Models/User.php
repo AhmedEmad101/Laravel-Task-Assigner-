@@ -49,7 +49,7 @@ class User extends Authenticatable
     //relations
     public function UserProjects()
     {
-       return $this->hasMany(Project::class ,'Creator')->withDefault();
+       return $this->hasMany(Project::class ,'Creator');//->withDefault();
     }
     public function IsAdmin()
     {
@@ -57,11 +57,11 @@ class User extends Authenticatable
     }
     public function Subscription()
     {
-        return $this->hasOne(Subscription::class ,'user_Id')->withDefault();//to prevent attempt to read a property on null
+        return $this->hasOne(Subscription::class ,'user_Id');//->withDefault();//to prevent attempt to read a property on null
     }
     public function WorkOnTask()
     {
-        return $this->hasMany(WorkOn::class ,'user_Id' )->withDefault();;
+        return $this->hasMany(WorkOn::class ,'user_Id' );//->withDefault();;
     }
 
 

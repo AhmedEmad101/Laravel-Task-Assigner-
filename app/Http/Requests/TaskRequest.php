@@ -23,7 +23,7 @@ class TaskRequest extends FormRequest
     {
         return [
 
-            'name'=>['string','min:3','max:10'],
+            'name'=>['string','min:3','max:30'],
         ];
     }
 }

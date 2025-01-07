@@ -59,19 +59,19 @@ public function PaymentCancel()
            $userid = session()->get('SubId');
            $user = User::find($userid);
            $usertier = Tier::find($tier);
-           if($user->Subscription->Tier->id != $tier && $user->Subscription->Tier->count() == 0){
+           if(optional(optional($user->Subscription)->Tier->id??0) != $tier && optional(optional($user->Subscription)->Tier??0)->count() == 0){
            $Subscription = Subscription::create(
             [
                 'user_Id'=> $userid,
                 'tier_id'=> $tier,
-                'expires_at'=>$date->addMonth()
+                'expires_at'=>$date->addYear()
             ]
         );
         $Subscription->save();
 
         return redirect()->back()->with('firstsub','You have subscriped in '.$usertier->name.' tier subscription');
     }
-    return redirect()->back()->with('alreadysub','You already have a ' .$user->Subscription->Tier->name .' subscription');
+    return redirect()->back()->with('alreadysub','You already have a ' .$user->Subscription->Tier->name .' subscription and expires at '.$user->Subscription->expires_at);
         }
 
 

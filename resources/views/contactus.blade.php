@@ -3,15 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="Auth.js"></script>
-    <script src="AuthData.js"></script>
-    <script src="LoginCheck.js"></script>
-    <script src="{{asset('logout.js') }}"></script>
-    <script src="{{asset('testlogout.js') }}"></script>
-    <script> window.onload = function() {
-        document.getElementById("id").value = userId;
-      };  </script>
-    <title>Project Form</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Contact Us Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -91,25 +86,35 @@
 <body>
     <div class="task-form-container">
         <h2>Contact Us</h2>
-        <form action="createproject" method="post">
+        <form action="createcontact" method="get">
             @csrf
             <input type="hidden" id="id" name="UserId" >
             <div class="form-group">
                 <label for="task-name">Email</label>
-                <input type="text" id="task-name" name="title" placeholder="Enter project name" required>
+                <input type="text" id="task-name" name="email" placeholder="Enter email address" required>
             </div>
             <div class="form-group">
                 <label for="task-description">Your Problem</label>
-                <textarea id="task-description" name="description" placeholder="Enter your problem details" required></textarea>
+                <textarea id="task-description" name="message" placeholder="Enter your problem details" required></textarea>
             </div>
             <button type="submit" class="submit-btn" >Submit</button>
         </form>
-     @error('title')
+        @if (session('contactsend'))
+        <div class="alert alert-success">
+            {{session('contactsend')}}
+        </div>
+
+        @endif
+     @error('email')
+     <div class="alert alert-danger">
         {{$message}}
+        </div>
      @enderror
-     @error('description')
+     @error('message')
+     <div class="alert alert-danger">
      {{$message}}
      @enderror
+     </div>
     </div>
 </body>
 

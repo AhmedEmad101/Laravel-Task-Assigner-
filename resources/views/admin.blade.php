@@ -9,8 +9,7 @@
     <script src="Auth.js"></script>
     <script src="AuthData.js"></script>
     <script src="LoginCheck.js"></script>
-    <script src="{{asset('logout.js') }}"></script>
-    <script src="{{asset('testlogout.js') }}"></script>
+
 </head>
 <body>
     <div class="dashboard">
@@ -21,8 +20,13 @@
                 <li><a href="#">Dashboard</a></li>
                 <li><a href="adminallusers">Users</a></li>
                 <li><a href="#">Settings</a></li>
-                <li><a href="#">Reports</a></li>
-                <li><a href="login">Logout</a></li>
+                <li><a href="AdminContacts">Reports</a></li>
+                <li>
+                    <form action="logout" method="post">
+                        @csrf
+                    <button id="logoutbutton" >Logout</button>
+
+                </form></li>
 
             </ul>
         </div>
@@ -62,4 +66,6 @@
         </div>
     </div>
 </body>
+<script src="{{asset('logout.js') }}"></script>
+    <script src="{{asset('testlogout.js') }}"></script>
 </html>

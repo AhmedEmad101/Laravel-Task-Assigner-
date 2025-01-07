@@ -25,9 +25,9 @@ class TeamController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**
@@ -36,14 +36,16 @@ class TeamController extends Controller
     public function store(TeamRequest $request)
     {
 
-        $Creator = session()->get('uid');
+        $leader_ID = $request->leader_Id;
         $Team = Team::create([
             'name'=> $request->name,
-            'leader_Id'=> $Creator,
+            'leader_Id'=> $leader_ID,
+            'member_id'=>$leader_ID
 
         ]);
-        //return redirect('home')->with('success', 'User created successfully');
-        return response()->json(['done']);
+        $Team->save();
+
+        return redirect('home')->with('success-addteam', 'you have created team '.$request->name .' successfully');
     }
 
 
@@ -74,14 +76,17 @@ class TeamController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Team $team)
+    public function destroy(Request $request,Team $team)
     {
-        if (Gate::denies('delete-team', $team))
+        $User_ID =  session()->get("Creator");
+        $User = User::find($User_ID);
+        if (Gate::forUser($User)->denies('delete-team', $team))
         {
-        abort(403);}
+            abort(403);}
+
         $team->delete();
 
-        return response()->json(['deleted successfully']);
+        return redirect()->back()->with('Team_deleted','Team has been deleted successfully');
     }
     public function ToTeamMember(Request $request)
     {
@@ -94,7 +99,7 @@ class TeamController extends Controller
     {$userid =  session()->get("Creator");
         if($request->ajax())
         {
-            $data = User::where('role', 1)
+            $data = User::where('role', 1)->whereNot('id',$userid)
     ->where(function ($query) use ($request) {
         $query->where('id', $request->search)
               ->orWhere('name', 'like', '%' . $request->search . '%');
@@ -138,13 +143,20 @@ class TeamController extends Controller
         $Member = User::where('name',$Member_Name)->first();
         $LeaderID = session()->get('Leader_ID');
         $TeamName = session()->get('Team_Name');
+$Query = Team::where('name',$TeamName)->where('member_id',$Member->id);
+  if($Query->count() < 1){
         $team->create([
             'name'=>$TeamName,
             'leader_Id'=>$LeaderID,
             'member_id'=>$Member->id
         ]);
         $team->save();
-        return redirect()->back()->with('Success_add_member','user '.$Member_Name.'has been added to team '.$TeamName);
+        return redirect('myteams')->with('Success_add_member','user '.$Member_Name.'has been added to team '.$TeamName);
+    }
+    else
+    {
+        return redirect('myteams')->with('Failed_add_member','user '.$Member_Name.' already in team '.$TeamName);
+    }
 
     }
 

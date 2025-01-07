@@ -20,7 +20,7 @@
         <div class="projects-list">
             <!-- Example of a single project entry -->
             <div class="project-item">
-                <h3 class="project-name">{{$p->title}}</h3>
+                <h3 class="project-name">Project : {{$p->title}}</h3>
                 <p class="project-description"> {{$p->description}}</p>
                 <div class="project-actions">
                     <form action="createtask" method="GET">

@@ -16,10 +16,11 @@ class TeamSeeder extends Seeder
      */
     public function run(): void
     {
+        $faker = \Faker\Factory::create();
         $id = 2;
         for( $i = 0; $i < 10; $i++ ) {
             DB::table('teams')->insert([
-                'name' =>'test',
+                'name' =>$faker->sentence(2),
                 'leader_Id'=> 1,
                 'member_Id' =>$id,
 

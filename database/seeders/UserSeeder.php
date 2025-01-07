@@ -11,8 +11,11 @@ class UserSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+
     public function run(): void
     {
+        $faker = \Faker\Factory::create();
+
         DB::table('users')->insert([
             'name' => 'ahmed',
             'email' => 'ahmed@email.com',
@@ -20,7 +23,7 @@ class UserSeeder extends Seeder
         ]);
         for($x = 0;$x<10;$x++){
             DB::table('users')->insert([
-                'name' => Str::random(10),
+                'name' =>  $faker->unique()->userName,
                 'email' => Str::random(10).'@example.com',
                 'password' => Hash::make('password'),
             ]);

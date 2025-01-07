@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\WorkOnController;
 use Illuminate\Support\Facades\Route;
@@ -13,9 +14,13 @@ use App\Http\Controllers\TierController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
 Route::view('admin','admin')->middleware('auth:sanctum','admin');
+Route::get('AdminContacts', [ContactUsController::class,'show']);
 route::get('GotoAdminPage',[AuthController::class,'GotoAdminPage']);
+Route::get('Contactindex', [ContactUsController::class,'index']);
+Route::get('createcontact', [ContactUsController::class,'store']);
 /////////////////////////////////////////////////////
-
+route::view('teamtest','test.teamtest');
+//////////////////////////////////////////////////
 route::post('login2',[AuthController::class,'login2'])->name('loginapi');//test login 2
 route::post('logout',[AuthController::class,'logout']);
 Route::get('tier', [TierController::class, 'index']);
@@ -34,11 +39,13 @@ Route::get('createtask', [TaskController::class, 'create']);
 Route::post('storetask', [TaskController::class, 'store']);
 Route::delete('deletetask/{task}', [TaskController::class, 'destroy']);
 //////////////////////////////////////////////////////
-Route::post('allmyteams', [TeamController::class,'index']);
+Route::GET('allmyteams', [TeamController::class,'index']);
+Route::POST('storeteam', [TeamController::class,'store']);
 Route::get('toteammember', [TeamController::class,'ToTeamMember']);
 Route::get('searchuser', [TeamController::class,'SearchUser']);
 Route::get('addteammember/{team}', [TeamController::class,'AddTeamMember']);
 Route::get('AssignTeamMember/{task}', [WorkOnController::class,'store']);
+Route::delete('DeleteTeam/{team}', [TeamController::class,'destroy']);
 route::get('workon',action: [WorkOnController::class,'index']);
 //////////////////////////////////////////////////////////
 Route::view('adminallusers','PartialViews.admin.allusers');
