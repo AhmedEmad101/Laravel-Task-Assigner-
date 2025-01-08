@@ -84,7 +84,7 @@ class TeamController extends Controller
         {
             abort(403);}
 
-        $team->delete();
+        Team::where('leader_Id',$User_ID)->delete();
 
         return redirect()->back()->with('Team_deleted','Team has been deleted successfully');
     }
@@ -96,7 +96,7 @@ class TeamController extends Controller
         return view('Member');
     }
     public function SearchUser(Request $request)
-    {$userid =  session()->get("Creator");
+    {$userid =  session()->get("Creator")??session()->get('TaskCreator');//because it's the two pages ajax is used in Creator is stored in myteams and Task creator is stored in my tasks
         if($request->ajax())
         {
             $data = User::where('role', 1)->whereNot('id',$userid)
@@ -159,5 +159,12 @@ $Query = Team::where('name',$TeamName)->where('member_id',$Member->id);
     }
 
     }
-
+public function DeleteTeamMember($TeamName,$UserId)
+{
+$User = User::find($UserId);
+$Team = Team::where('name',$TeamName);
+dd($UserId);
+Team::where('member_id',$User->id)->where('id',$Team->id)->delete();
+return redirect('myteams')->with(['member_deleted', $User->name.' has been deleted successfully from team '.$Team->name]);
+}
 }
