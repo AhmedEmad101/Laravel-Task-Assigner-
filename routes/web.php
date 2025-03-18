@@ -46,6 +46,7 @@ Route::get('searchuser', [TeamController::class,'SearchUser']);
 Route::get('addteammember/{team}', [TeamController::class,'AddTeamMember']);
 Route::get('AssignTeamMember/{task}', [WorkOnController::class,'store']);
 Route::delete('DeleteTeam/{team}', [TeamController::class,'destroy']);
+Route::delete('DeleteTeamMember/{TeamName}/{UserId}', [TeamController::class,'DeleteTeamMember']);
 route::get('workon',action: [WorkOnController::class,'index']);
 //////////////////////////////////////////////////////////
 Route::view('adminallusers','PartialViews.admin.allusers');

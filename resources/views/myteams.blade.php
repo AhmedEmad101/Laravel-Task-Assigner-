@@ -34,8 +34,15 @@
             <div class="alert alert-success">
             {{session('team_deleted')}}
         </div>
+
             @endif
 
+            @if (session('member_deleted'))
+            <div class="alert alert-success">
+            {{session('member_deleted')}}
+        </div>
+
+            @endif
                 @if (session('Failed_add_member'))
                 <div class="alert alert-danger">
                 {{session('Failed_add_member')}}
@@ -70,7 +77,11 @@
             </div>
              @foreach ($teams as $team)
            @if($team->member_id != $team->leader_Id)
-                <p class="project-description">Team Member ID {{$team->member_id}}</p>
+                <p class="project-description"><b>Team Member ID {{$team->member_id}} </b> Joined at {{$team->created_at->diffForHumans()}}</p>
+                <form id ="" action="DeleteTeamMember/{{$team->name}}/{{$team->member_id}}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                <button class="delete-btn"  onclick="confirmDelete({{ $team->id }})">Delete Team member</button>
 @endif
                 @endforeach
 
