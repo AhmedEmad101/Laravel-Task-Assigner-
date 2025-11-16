@@ -77,7 +77,7 @@
             </div>
              @foreach ($teams as $team)
            @if($team->member_id != $team->leader_Id)
-                <p class="project-description"><b>Team Member ID {{$team->member_id}} </b> Joined at {{$team->created_at->diffForHumans()}}</p>
+                <p class="project-description"><b>Team Member ID {{$team->member_id}} </b> Joined at {{$team->created_at?$team->created_at->diffForHumans():'none'}}</p>
                 <form id ="" action="DeleteTeamMember/{{$team->name}}/{{$team->member_id}}" method="POST">
                     @method('DELETE')
                     @csrf
