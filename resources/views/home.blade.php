@@ -1,218 +1,387 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <!-- Bootstrap CSS (CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Optional Bootstrap Icons (for using icons in navbar) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style> body {
-        background-color: #11fe6c;
-         /* Light blue */
-    }</style>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="Auth.js"></script>
-    <script src="AuthData.js"></script>
-    <script src="LoginCheck.js"></script>
-    <script src="{{asset('testlogout.js') }}"></script>
-    <script> window.onload = function() {
-        document.getElementById("Creatorid").value = userId;
-        document.getElementById("Authorid").value = userId;
-        document.getElementById("TaskCreator").value = userId;
-        document.getElementById("Assignmentorid").value = userId;
-        document.getElementById("SubId").value = userId
-        document.getElementById("ContactorId").value = userId
-      };  </script>
+@extends('layouts.app')
 
-</head>
-<body>
-    @if (session('task_created'))
+@section('title', 'Dashboard - TaskFlow')
 
-    {{session('task_created')}}
+@section('styles')
+<style>
+    .welcome-section {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin-top: 20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        position: relative;
+        overflow: hidden;
+    }
 
+    .welcome-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    }
 
-    @endif
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Task Assginer --> Welcome <span id="email"></span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+    .user-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 0 auto 20px;
+        border: 4px solid white;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    .dashboard-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        height: 100%;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: var(--card-shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--hover-shadow);
+    }
+
+    .dashboard-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    }
+
+    .card-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        color: white;
+        font-size: 2rem;
+    }
+
+    .card-title {
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    .notification-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: #ff4757;
+        color: white;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+        z-index: 1;
+    }
+
+    .stats-card {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .stats-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .stats-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+</style>
+@endsection
+
+@section('content')
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <div class="user-avatar" id="userAvatar">
+            U
+        </div>
+        <h1 class="text-center mb-3">Welcome back, <span id="userDisplayName" class="gradient-text">User</span>! 👋</h1>
+        <p class="text-center text-muted mb-4">Here's what's happening with your projects today</p>
+        
+        <!-- Quick Stats -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="stats-card">
+                    <i class="bi bi-check-circle fs-4"></i>
+                    <div class="stats-number" id="tasksCount">0</div>
+                    <div class="stats-label">Active Tasks</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stats-card">
+                    <i class="bi bi-folder fs-4"></i>
+                    <div class="stats-number" id="projectsCount">0</div>
+                    <div class="stats-label">Projects</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stats-card">
+                    <i class="bi bi-people fs-4"></i>
+                    <div class="stats-number" id="teamsCount">0</div>
+                    <div class="stats-label">Teams</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stats-card">
+                    <i class="bi bi-clock fs-4"></i>
+                    <div class="stats-number" id="pendingCount">0</div>
+                    <div class="stats-label">Pending</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-primary btn-lg" onclick="location.href='{{ url('/team') }}'">
+                <i class="bi bi-people-fill me-2"></i> Create Team
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <form action="home" method="GET">
-                            @csrf
-                        <button id="" >home</button>
-
-                    </form>
-                    </li>
-                    <li class="nav-item">
-                        <form action="subscriptions" method="GET">
-                            @csrf
-                            <input type="hidden" name="SubId" id="SubId">
-                        <button id="" >Subscriptions</button>
-
-                    </form>
-                    </li>
-                    <li class="nav-item">
-                        <form action="about" method="GET">
-                            @csrf
-                        <button id="" >about</button>
-
-                    </form>
-                    </li>
-                    <li class="nav-item">
-                        <form action="Contactindex" method="GET">
-                            @csrf
-                            <input type="hidden" name="Contactor" id="ContactorId">
-                        <button id="" >Contact</button>
-
-                    </form>
-                    </li>
-                    <li class="nav-item">
-
-
-                        <form action="logout" method="post">
-                            @csrf
-                        <button id="logoutbutton" >Logout</button>
-
-                    </form>
-
-
-
-
-                    </li>
-                </ul>
-            </div>
+            <button class="btn btn-primary btn-lg" onclick="location.href='{{ url('/project') }}'">
+                <i class="bi bi-folder-plus me-2"></i> Create Project
+            </button>
+            <button class="btn btn-primary btn-lg" onclick="location.href='{{ url('/send') }}'">
+                <i class="bi bi-chat-dots me-2"></i> Send SMS
+            </button>
         </div>
-    </nav>
+    </div>
 
-    <!-- Main Content Section -->
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12 text-center">
-                <div><h1>Welcome to Task Assigner , <span id="name"></span></h1></div><div> <img id ="SubscriptionImg" src="" width="100" height="100"></div>
-                <span id="expires_at"></span>
-                <p>This is the home page where you can learn more about us.</p>
-                <button class="btn btn-primary" onclick="location.href='team'">Create a team</button>
-                <button class="btn btn-primary" onclick="location.href='project'">Create a project</button>
-                <button class="btn btn-primary" onclick="location.href='send'">Send SMS</button>
-            </div>
-            @if (session('success-addteam'))
-                <div class="alert alert-success">
-                    {{session('success-addteam')}}
+    <!-- Flash Messages -->
+    @if (session('success-addteam'))
+        <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            {{ session('success-addteam') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    @if (session('task_created'))
+        <div class="alert alert-info alert-dismissible fade show mt-4" role="alert">
+            <i class="bi bi-bell-fill me-2"></i>
+            {{ session('task_created') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    @if (session('project_created'))
+        <div class="alert alert-info alert-dismissible fade show mt-4" role="alert">
+            <i class="bi bi-bell-fill me-2"></i>
+            {{ session('project_created') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    <!-- Dashboard Cards -->
+    <div class="row mt-5 g-4">
+        <!-- My Tasks Card -->
+        <div class="col-lg-4 col-md-6">
+            <div class="dashboard-card">
+                @if (session('task_created'))
+                    <div class="notification-badge">1</div>
+                @endif
+                <div class="card-icon">
+                    <i class="bi bi-check-square"></i>
                 </div>
-            @endif
-        </div>
-
-        <div class="row mt-4">
-            <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-                <div class="card">
-                    <img src="task.png" class="card-img-top" alt="..." width="200" height="240">
-                    <div class="card-body">
-                        <h5 class="card-title">My Tasks</h5>
-
-
-                        <form action="mytasks" method="GET">
-                            @csrf
-                            <input type="hidden" name="TaskCreator" id="TaskCreator">
-                        <button class="btn btn-outline-primary" type="submit">View </button> <span id="alertBadge" class="badge" > @if (session('task_created'))
-                           <div style="background-color: red"> <p>+1 here</p></div>
-                            @endif</span>
-
+                <h3 class="card-title text-center">My Tasks</h3>
+                <p class="card-text text-center">Manage your assigned tasks, track progress, and meet deadlines efficiently.</p>
+                <div class="text-center mt-4">
+                    <form action="{{ url('/mytasks') }}" method="GET" class="d-inline-block me-2 mb-2">
+                        @csrf
+                        <input type="hidden" name="TaskCreator" id="TaskCreator">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="bi bi-eye me-1"></i> View Tasks
+                        </button>
                     </form>
-                    <form action="workon" method="get">@csrf
+                    <form action="{{ url('/workon') }}" method="get" class="d-inline-block mb-2">
+                        @csrf
                         <input type="hidden" name="Assignment" id="Assignmentorid">
-                        <button class="btn btn-outline-primary" type="submit">Assignments </button>
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="bi bi-person-check me-1"></i> Assignments
+                        </button>
                     </form>
-                    <p class="card-text">All the users that you assigned tasks to them here.</p>
-                    </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-                <div class="card">
-                    <img src="projectimg.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">My Projects</h5>
-                        <p class="card-text">Explore the services we offer to our clients.</p>
-                        <form action="allmyprojects" method="GET">
-                            @csrf
-                            <input type="hidden" name="Authorid" id="Authorid">
-                        <button class="btn btn-outline-primary" type="submit">View </button>
-                        <span id="" class="" > @if (session('project_created'))
-                            <div style="background-color: red"> <p>+1 here</p></div>
-                             @endif</span>
+        </div>
+
+        <!-- My Projects Card -->
+        <div class="col-lg-4 col-md-6">
+            <div class="dashboard-card">
+                @if (session('project_created'))
+                    <div class="notification-badge">1</div>
+                @endif
+                <div class="card-icon">
+                    <i class="bi bi-folder2-open"></i>
+                </div>
+                <h3 class="card-title text-center">My Projects</h3>
+                <p class="card-text text-center">Organize, monitor, and collaborate on all your projects in one place.</p>
+                <div class="text-center mt-4">
+                    <form action="{{ url('/allmyprojects') }}" method="GET">
+                        @csrf
+                        <input type="hidden" name="Authorid" id="Authorid">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="bi bi-folder2 me-1"></i> View Projects
+                        </button>
                     </form>
-                    </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-                <div class="card">
-                    <img src="teamimg.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">My Teams</h5>
-                        <p class="card-text">Get in touch with us for inquiries and support.</p>
-                        <form action="allmyteams" method="GET">
-                            @csrf
-                            <input type="hidden" name="CreatorID" id="Creatorid">
-                        <button class="btn btn-outline-primary" type="submit">View </button>
+        </div>
+
+        <!-- My Teams Card -->
+        <div class="col-lg-4 col-md-6">
+            <div class="dashboard-card">
+                <div class="card-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <h3 class="card-title text-center">My Teams</h3>
+                <p class="card-text text-center">Collaborate with team members, assign roles, and manage team activities.</p>
+                <div class="text-center mt-4">
+                    <form action="{{ url('/allmyteams') }}" method="GET">
+                        @csrf
+                        <input type="hidden" name="CreatorID" id="Creatorid">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="bi bi-people-fill me-1"></i> View Teams
+                        </button>
                     </form>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-light text-center p-3 mt-5">
-        <p>&copy; 2024 My Website. All Rights Reserved.</p>
-    </footer>
+    <!-- Recent Activity Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="dashboard-card">
+                <h3 class="card-title mb-4">
+                    <i class="bi bi-activity me-2"></i> Recent Activity
+                </h3>
+                <div class="list-group">
+                    <div class="list-group-item border-0">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                <i class="bi bi-plus-circle text-primary"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <span>New task created</span>
+                                    <small class="text-muted">2 minutes ago</small>
+                                </div>
+                                <small class="text-muted">Design Homepage</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item border-0">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-success bg-opacity-10 p-2 rounded me-3">
+                                <i class="bi bi-check-circle text-success"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <span>Project completed</span>
+                                    <small class="text-muted">1 hour ago</small>
+                                </div>
+                                <small class="text-muted">Mobile App Development</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item border-0">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-info bg-opacity-10 p-2 rounded me-3">
+                                <i class="bi bi-person-plus text-info"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <span>New team member added</span>
+                                    <small class="text-muted">Yesterday</small>
+                                </div>
+                                <small class="text-muted">John Doe joined Design Team</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
 
-    <!-- Bootstrap JS and Popper.js (CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="{{asset('logout.js') }}"></script>
+@section('scripts')
 <script>
-var SubImg = document.getElementById('SubscriptionImg');
-var expires_at_date = document.getElementById('expires_at');
-fetch(`api/tier/${userId}`, {
-    method: 'GET', // You are fetching data, so 'GET' is appropriate
-    headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update user avatar with initial
+        if (typeof userEmail !== 'undefined') {
+            const name = userEmail.split('@')[0];
+            const displayName = name.charAt(0).toUpperCase() + name.slice(1);
+            document.getElementById('userDisplayName').textContent = displayName;
+            document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
+        }
 
-    },
-})
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        // Fetch dashboard stats (you'll need to implement these API endpoints)
+        if (typeof userId !== 'undefined' && typeof token !== 'undefined') {
+            // Example: Fetch task count
+            fetch(`/api/user/${userId}/tasks/count`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.count !== undefined) {
+                    document.getElementById('tasksCount').textContent = data.count;
+                }
+            })
+            .catch(console.error);
+
+            // Add similar fetches for projectsCount, teamsCount, pendingCount
         }
-        return response.json(); // Parse the JSON response
-    })
-    .then(data => {
-        if (data.subscriptionName === 404) {
-            SubImg.style.display = 'none';
-            console.error('Subscription tier not found.');
-        } else {
-           switch(data.subscriptionName)
-           {
-            case 'gold':SubImg.src ='Gold-Icon.jpg';break;
-            case 'silver':SubImg.src = 'silvericon.png';break;
-            case 'bronze':SubImg.src ='Bronze-Icon-1.jpg';break
-           } // Handle the subscription tier name
-           expires_at_date.innerText = data.subscriptionName +' membership expires at '+data.expires_at;
-           expires_at_date.style.fontWeight = 'bold';
-        }
-    })
-    .catch(error => {
-        SubImg.style.display = 'none';
-        console.error('Error fetching subscription:', error);
+
+        // Sample data for demonstration
+        setTimeout(() => {
+            document.getElementById('tasksCount').textContent = '12';
+            document.getElementById('projectsCount').textContent = '5';
+            document.getElementById('teamsCount').textContent = '3';
+            document.getElementById('pendingCount').textContent = '7';
+        }, 1000);
     });
 </script>
-
-</body>
-</html>
+@endsection

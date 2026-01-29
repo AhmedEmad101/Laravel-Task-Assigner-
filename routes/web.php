@@ -57,3 +57,7 @@ route::post('Pay/{id}',[PaypalController::class,'Payment']);
 route::get('PaymentSuccess/{tier}',[PaypalController::class,'PaymentSuccess'])->name('PS');
 route::get('PaymentCancel',[PaypalController::class,'PaymentCancel'])->name('PC');
 ///////////////////////////////////////////////////////////////
+Route::get('/', function () {
+    return view('home');
+})->middleware(['auth', 'verified'])->name('dashboard');
+

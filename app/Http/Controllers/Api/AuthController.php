@@ -58,7 +58,6 @@ class AuthController extends Controller
           if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
               // Authentication successful, store the user ID in the session
               $userId = Auth::user()->id;
-              dd( Auth::user()->id);
               session(['user_id' => $userId]);  // Store user ID in the session
 
               // Optionally redirect to a dashboard or home page
