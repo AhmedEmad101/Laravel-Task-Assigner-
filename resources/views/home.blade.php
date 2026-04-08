@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard - TaskFlow')
+@section('title', 'Dashboard - Task Assigner')
 
 @section('styles')
 <style>

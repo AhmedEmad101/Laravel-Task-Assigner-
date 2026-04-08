@@ -5,7 +5,7 @@
             <!-- Brand Logo -->
             <a class="navbar-brand text-white fw-bold fs-4" href="{{ url('/home') }}">
                 <i class="bi bi-kanban-fill me-2"></i>
-                TaskFlow
+                Task Assigner
             </a>
             
             <!-- Mobile Toggle -->
