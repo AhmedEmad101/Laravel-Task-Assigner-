@@ -232,9 +232,9 @@
     </div>
 
     <!-- Tasks List -->
-    @if(count($PfTasks) > 0)
+    @if(count($tasks) > 0)
     <div class="row" id="tasksContainer">
-        @foreach ($PfTasks as $task)
+        @foreach ($tasks as $task)
         <div class="col-lg-6 col-xl-4 mb-4 task-item" 
              data-status="{{ strtolower($task->status ?? 'pending') }}"
              data-name="{{ strtolower($task->name) }}"
@@ -335,29 +335,29 @@
     </div>
     
     <!-- Pagination -->
-    @if($PfTasks->hasPages())
+    @if($tasks->hasPages())
     <div class="d-flex justify-content-center mt-5">
         <nav aria-label="Tasks pagination">
             <ul class="pagination">
-                @if($PfTasks->onFirstPage())
+                @if($tasks->onFirstPage())
                 <li class="page-item disabled">
                     <span class="page-link">Previous</span>
                 </li>
                 @else
                 <li class="page-item">
-                    <a class="page-link" href="{{ $PfTasks->previousPageUrl() }}">Previous</a>
+                    <a class="page-link" href="{{ $tasks->previousPageUrl() }}">Previous</a>
                 </li>
                 @endif
 
-                @foreach(range(1, $PfTasks->lastPage()) as $page)
-                <li class="page-item {{ $PfTasks->currentPage() == $page ? 'active' : '' }}">
-                    <a class="page-link" href="{{ $PfTasks->url($page) }}">{{ $page }}</a>
+                @foreach(range(1, $tasks->lastPage()) as $page)
+                <li class="page-item {{ $tasks->currentPage() == $page ? 'active' : '' }}">
+                    <a class="page-link" href="{{ $tasks->url($page) }}">{{ $page }}</a>
                 </li>
                 @endforeach
 
                 @if($PfTasks->hasMorePages())
                 <li class="page-item">
-                    <a class="page-link" href="{{ $PfTasks->nextPageUrl() }}">Next</a>
+                    <a class="page-link" href="{{ $tasks->nextPageUrl() }}">Next</a>
                 </li>
                 @else
                 <li class="page-item disabled">

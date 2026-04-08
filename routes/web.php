@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\WorkOnController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SmsController;
 use App\Http\Controllers\SubscriptionController;
@@ -13,6 +14,15 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TierController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 Route::view('admin','admin')->middleware('auth:sanctum','admin');
 Route::get('AdminContacts', [ContactUsController::class,'show']);
 route::get('GotoAdminPage',[AuthController::class,'GotoAdminPage']);
@@ -61,3 +71,5 @@ Route::get('/', function () {
     return view('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+require __DIR__.'/auth.php';

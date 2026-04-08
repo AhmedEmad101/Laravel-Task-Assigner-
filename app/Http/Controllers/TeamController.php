@@ -17,9 +17,8 @@ class TeamController extends Controller
      */
     public function index(Request $request)
     {
-        $Creator =$request->CreatorID;
-        session()->put("Creator", $Creator);
-        return view("myteams",);
+        $teams = Team::where('leader_Id',auth()->id())->orWhere('member_id',auth()->id())->get()->groupBy('name');
+        return view("myteams",['teams'=>$teams]);
     }
 
     /**
@@ -96,7 +95,7 @@ class TeamController extends Controller
         return view('Member');
     }
     public function SearchUser(Request $request)
-    {$userid =  session()->get("Creator")??session()->get('TaskCreator');//because it's the two pages ajax is used in Creator is stored in myteams and Task creator is stored in my tasks
+    {$userid = auth()->id();
         if($request->ajax())
         {
             $data = User::where('role', 1)->whereNot('id',$userid)
@@ -112,6 +111,7 @@ class TeamController extends Controller
             <tr>
                 <th >Name</th>
                 <th>ID</th>
+                 <th>ss</th>
             </tr>
         </thead>
         <tbody>';

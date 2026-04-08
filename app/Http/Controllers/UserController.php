@@ -34,9 +34,8 @@ class UserController extends Controller
    }
    public function task()
    {
-    $email = session()->get('email');
-    $User = User::where('email',$email)->first();
-    return view('mytasks');
+  $tasks = Task::where('Creator',auth()->id());
+    return view('mytasks',['tasks'=>$tasks]);
    }
    public function taskpolicy(Task $task)
    {

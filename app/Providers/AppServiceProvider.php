@@ -36,18 +36,12 @@ class AppServiceProvider extends ServiceProvider
             })
             ->get()
             ; // Get the name of the related users
-
-            $Creator = session()->get('Creator');
-            $taskCreator = session()->get('TaskCreator');
-            $Profileprojects = Project::where('Creator',$Creator)->get();
-            $Profiletasks = Task::where('Creator',$taskCreator)->get();
-            $Profileteams = Team::where('leader_Id',$Creator)->orWhere('member_id',$Creator)->get()->groupBy('name');
-            $Project = Project::all();
+            $Project = Project::paginate(10);
             $user = User::paginate(7);
             $task = Task::all();
             $team = Team::all();
             $tier = Tier::all();
-            $view->with(['Project'=>$Project,'PfProjects'=>$Profileprojects,'user'=>$user ,'task'=>$task,'PfTasks'=>$Profiletasks ,'team'=>$team,'PfTeams'=>$Profileteams,'tier'=>$tier , 'workon'=>$userNames]);
+            $view->with(['Project'=>$Project,'user'=>$user ,'task'=>$task,'team'=>$team,'tier'=>$tier , 'workon'=>$userNames]);
         });
         view()->composer(['PartialViews.admin.Contacts'],function($view)
     {

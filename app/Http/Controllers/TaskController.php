@@ -16,8 +16,8 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        session()->put('TaskCreator',$request->TaskCreator);
-        return view('mytasks');
+       $tasks = Task::where('Creator',auth()->id())->paginate(10);
+        return view('mytasks',['tasks'=>$tasks]);
     }
 
     /**
@@ -34,7 +34,7 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        $Task_Creator_Id = session()->get('Creator');
+        $Task_Creator_Id = auth()->id();
         $ProjectId = session()->get('ProjectId');
         $name = $request->name;
         $Task_Description = $request->task_description;

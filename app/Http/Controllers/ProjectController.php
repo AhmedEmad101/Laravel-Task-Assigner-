@@ -14,10 +14,8 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $Creator =$request->Authorid;
-        session()->put("Creator", $Creator);
-
-       return view('AllProjects');
+        $projects = Project::where('Creator',auth()->id())->paginate(10);
+       return view('AllProjects',['projects'=>$projects]);
     }
 
     /**
