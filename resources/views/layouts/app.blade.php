@@ -172,6 +172,7 @@
             }
         };
     </script>
+     @livewireStyles
 </head>
 <body>
     <!-- Include Header -->
@@ -181,6 +182,7 @@
     <main>
         <div class="container">
             @yield('content')
+              @livewireScripts
         </div>
     </main>
     
