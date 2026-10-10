@@ -26,7 +26,7 @@ jobs:
           format: 'table'
           severity: 'CRITICAL,HIGH'
 
-dast_scan:
+  dast_scan:
     name: Run DAST (OWASP ZAP Target Analysis)
     runs-on: ubuntu-latest
     needs: sast_scan
@@ -44,11 +44,9 @@ dast_scan:
       - name: Launch App for DAST Testing
         run: |
           docker compose up -d --build
-          # Wait for MySQL and Nginx to fully boot
           sleep 20
           docker compose exec -T server php artisan key:generate --force
           docker compose exec -T server php artisan migrate --force || true
-          # Health check: ensure port 9000 returns an HTTP response
           curl --retry 5 --retry-delay 3 --retry-connrefused -I http://localhost:9000
 
       - name: OWASP ZAP Baseline DAST Scan
