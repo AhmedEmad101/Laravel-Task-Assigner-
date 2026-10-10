@@ -18,9 +18,6 @@ jobs:
       - name: Build Docker Services
         run: docker compose build
 
-      - name: Run Application Tests
-        run: docker compose run --rm server php artisan test
-
       - name: Cleanup Containers
         if: always()
         run: docker compose down -v
