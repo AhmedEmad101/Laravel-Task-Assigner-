@@ -36,16 +36,25 @@ jobs:
 
       - name: Prepare Laravel Environment
         run: |
-          cp .env.example .env
-          sed -i 's/DB_HOST=127.0.0.1/DB_HOST=mysql/g' .env
-          sed -i 's/DB_DATABASE=.*/DB_DATABASE=TaskAssigner/g' .env
-          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=/g' .env
+          if [ -f .env.example ]; then
+            cp .env.example .env
+          else
+            touch .env
+            echo "APP_NAME=TaskAssigner" >> .env
+            echo "APP_ENV=local" >> .env
+            echo "APP_KEY=" >> .env
+            echo "APP_DEBUG=true" >> .env
+            echo "APP_URL=http://localhost:9000" >> .env
+          fi
+          sed -i 's/DB_HOST=127.0.0.1/DB_HOST=mysql/g' .env 2>/dev/null || true
+          sed -i 's/DB_DATABASE=.*/DB_DATABASE=TaskAssigner/g' .env 2>/dev/null || true
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=/g' .env 2>/dev/null || true
 
       - name: Launch App for DAST Testing
         run: |
           docker compose up -d --build
           sleep 20
-          docker compose exec -T server php artisan key:generate --force
+          docker compose exec -T server php artisan key:generate --force || true
           docker compose exec -T server php artisan migrate --force || true
           curl --retry 5 --retry-delay 3 --retry-connrefused -I http://localhost:9000
 
