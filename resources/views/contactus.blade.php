@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <title>Contact Us Form</title>
+@extends('layouts.app')
+    @section('title','Contact Us Form')
+    @section('styles')
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -82,8 +76,9 @@
             background-color: #0056b3;
         }
     </style>
+    @endsection
 </head>
-<body>
+@section('content')
     <div class="task-form-container">
         <h2>Contact Us</h2>
         <form action="createcontact" method="get">
@@ -116,6 +111,5 @@
      @enderror
      </div>
     </div>
-</body>
 
-</html>
+@endsection
