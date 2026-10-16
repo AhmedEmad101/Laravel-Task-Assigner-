@@ -412,7 +412,7 @@
                                type="email" 
                                name="email" 
                                value="{{ old('email') }}" 
-                               placeholder="Enter your email"
+                               placeholder="ahmed@email.com"
                                required 
                                autofocus 
                                autocomplete="username">
@@ -429,7 +429,7 @@
                         <input id="password" 
                                type="password" 
                                name="password" 
-                               placeholder="Enter your password"
+                               placeholder="123456"
                                required 
                                autocomplete="current-password">
                         <span class="password-toggle" onclick="togglePassword()">
