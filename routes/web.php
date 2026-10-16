@@ -13,7 +13,6 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TierController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\Admin;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,9 +22,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::view('admin','admin')->middleware('auth:sanctum','admin');
-Route::get('AdminContacts', [ContactUsController::class,'show']);
-route::get('GotoAdminPage',[AuthController::class,'GotoAdminPage']);
 Route::get('Contactindex', [ContactUsController::class,'index']);
 Route::get('createcontact', [ContactUsController::class,'store']);
 /////////////////////////////////////////////////////
@@ -34,12 +30,13 @@ route::view('teamtest','test.teamtest');
 route::post('login2',[AuthController::class,'login2'])->name('loginapi');//test login 2
 route::post('logout',[AuthController::class,'logout']);
 Route::get('tier', [TierController::class, 'index']);
-$pages = ['home','task', 'project','team','login','admin','mytasks','myteams','AllProjects','member','about','contactus'];
+$pages = ['home','task', 'project','team','login','mytasks','myteams','AllProjects','member','about','contactus'];
 foreach ($pages as $page) {
     Route::view($page, $page)->name($page);//->middleware('throttle:3,60');
 }
 Route::get('subscriptions', [SubscriptionController::class,'index']);
 //createproject
+Route::post('/project/create', [ProjectController::class, 'create'])->name('project.create');
 Route::post('createproject', [ProjectController::class, 'store']);
 Route::get('allmyprojects', [ProjectController::class, 'index'])->name('allprojects.index');
 Route::delete('delete/{project}', [ProjectController::class, 'destroy']);
@@ -59,7 +56,6 @@ Route::delete('DeleteTeam/{team}', [TeamController::class,'destroy']);
 Route::delete('DeleteTeamMember/{TeamName}/{UserId}', [TeamController::class,'DeleteTeamMember']);
 route::get('workon',action: [WorkOnController::class,'index']);
 //////////////////////////////////////////////////////////
-Route::view('adminallusers','PartialViews.admin.allusers');
 Route::view('test','Test.login');
 /////////////////////////////////////////
 Route::get('send', [SmsController::class, 'send']);
@@ -71,5 +67,5 @@ Route::get('/', function () {
     return view('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
+require __DIR__.'admin.php';
 require __DIR__.'/auth.php';

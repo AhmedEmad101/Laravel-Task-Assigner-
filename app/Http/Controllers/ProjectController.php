@@ -23,7 +23,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+       return view('project.create');
     }
 
     /**
@@ -31,7 +31,7 @@ class ProjectController extends Controller
      */
     public function store(ProjectRequest $request)
     {
-        $Creator = $request->input('UserId');
+        $Creator = auth()->user()?->id;
        $title = $request->title;
        $description = $request->description;
        $Project = Project::create(['Creator'=> $Creator ,'title'=> $title,'description'=> $description]);
