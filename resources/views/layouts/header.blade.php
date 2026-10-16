@@ -58,7 +58,7 @@
                             <li>
                                 <span class="dropdown-item-text small">
                                     <i class="bi bi-envelope me-2"></i>
-                                    <span id="userEmail">user@example.com</span>
+                                    <span id="userEmail">{{auth()->user()?->email}}</span>
                                 </span>
                             </li>
                             <li><hr class="dropdown-divider"></li>
