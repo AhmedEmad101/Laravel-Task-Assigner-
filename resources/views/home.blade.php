@@ -139,7 +139,7 @@
         <div class="user-avatar" id="userAvatar">
             U
         </div>
-        <h1 class="text-center mb-3">Welcome back, <span id="userDisplayName" class="gradient-text">User</span>! 👋</h1>
+        <h1 class="text-center mb-3">Welcome back, {{auth()->user()?->name}}! 👋</h1>
         <p class="text-center text-muted mb-4">Here's what's happening with your projects today</p>
         
         <!-- Quick Stats -->
@@ -179,7 +179,7 @@
             <button class="btn btn-primary btn-lg" onclick="location.href='{{ url('/team') }}'">
                 <i class="bi bi-people-fill me-2"></i> Create Team
             </button>
-            <button class="btn btn-primary btn-lg" onclick="location.href='{{ url('/project') }}'">
+            <button class="btn btn-primary btn-lg" onclick="location.href='{{ route('project.create') }}'">
                 <i class="bi bi-folder-plus me-2"></i> Create Project
             </button>
             <button class="btn btn-primary btn-lg" onclick="location.href='{{ url('/send') }}'">
@@ -347,41 +347,6 @@
 
 @section('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Update user avatar with initial
-        if (typeof userEmail !== 'undefined') {
-            const name = userEmail.split('@')[0];
-            const displayName = name.charAt(0).toUpperCase() + name.slice(1);
-            document.getElementById('userDisplayName').textContent = displayName;
-            document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
-        }
-
-        // Fetch dashboard stats (you'll need to implement these API endpoints)
-        if (typeof userId !== 'undefined' && typeof token !== 'undefined') {
-            // Example: Fetch task count
-            fetch(`/api/user/${userId}/tasks/count`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.count !== undefined) {
-                    document.getElementById('tasksCount').textContent = data.count;
-                }
-            })
-            .catch(console.error);
-
-            // Add similar fetches for projectsCount, teamsCount, pendingCount
-        }
-
-        // Sample data for demonstration
-        setTimeout(() => {
-            document.getElementById('tasksCount').textContent = '12';
-            document.getElementById('projectsCount').textContent = '5';
-            document.getElementById('teamsCount').textContent = '3';
-            document.getElementById('pendingCount').textContent = '7';
-        }, 1000);
-    });
+  
 </script>
 @endsection

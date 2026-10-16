@@ -52,7 +52,7 @@
                         <a class="nav-link dropdown-toggle text-light" href="#" id="userDropdown" 
                            role="button" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle me-1"></i>
-                            <span id="userName">User</span>
+                            <span id="userName">{{auth()->user()?->name}}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>

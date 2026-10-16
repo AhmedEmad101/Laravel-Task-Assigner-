@@ -235,7 +235,7 @@
                 </h1>
                 <p class="text-muted mb-0">Manage and organize all your projects in one place</p>
             </div>
-            <button class="btn btn-primary btn-lg" onclick="location.href='{{ url('/project') }}'">
+            <button class="btn btn-primary btn-lg" onclick="location.href='{{ route('project.create') }}'">
                 <i class="bi bi-plus-circle me-2"></i>Create New Project
             </button>
         </div>

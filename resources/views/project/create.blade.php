@@ -310,7 +310,7 @@
             </div>
         @endif
 
-        <form action="{{ url('/createproject') }}" method="POST" id="projectForm">
+        <form action="{{route('project.store')}}" method="POST" id="projectForm">
             @csrf
             <input type="hidden" id="user_id" name="UserId" value="">
             
@@ -410,15 +410,6 @@
 @section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Set user ID from localStorage or global variable
-        const userId = localStorage.getItem('id') || '{{ $userId ?? "" }}';
-        const userIdField = document.getElementById('user_id');
-        if (userIdField && userId) {
-            userIdField.value = userId;
-        } else if (!userId) {
-            console.warn('No user ID found. Please ensure you are logged in.');
-        }
-
         // Project name character counter and preview
         const projectNameInput = document.getElementById('project-name');
         const titleCountSpan = document.getElementById('titleCount');
@@ -525,12 +516,6 @@
                     hasError = true;
                 } else if (description.value.trim().length < 10) {
                     showError(description, 'Please provide a more detailed description (at least 10 characters)');
-                    hasError = true;
-                }
-
-                // Validate user ID
-                if (!userIdField.value) {
-                    showError(userIdField, 'User information missing. Please refresh the page.');
                     hasError = true;
                 }
 
