@@ -1,6 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Admin;
+use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\Api\AuthController;
+
 Route::get('/', function () {
     return view('welcome');
 });

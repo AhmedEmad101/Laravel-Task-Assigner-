@@ -72,21 +72,28 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->back();
     }
-   public function suggestDescription(Request $request)
+  public function suggestDescription(Request $request)
 {
-    $response = Http::timeout(60)->post('http://172.17.0.1:8000/generate-description', [
-        'title' => $request->string('title'),
-        'context_type' => $request->string('context_type', 'project'),
+    $validated = $request->validate([
+        'title' => 'required|string|min:3',
+        'context_type' => 'nullable|string|in:project,team',
+    ]);
+
+    // In Docker, the host is the service name: ai_service
+    $baseUrl = env('AI_SERVICE_URL', 'http://ai_service:8000');
+
+    $response = Http::timeout(60)->post("{$baseUrl}/generate-description", [
+        'title' => $validated['title'],
+        'context_type' => $validated['context_type'] ?? 'project',
     ]);
 
     if ($response->successful()) {
         return response()->json($response->json());
     }
 
-    // Dump the actual error details from FastAPI
     return response()->json([
-        'status' => $response->status(),
-        'error_from_python' => $response->json() ?? $response->body(),
+        'error' => 'Unable to generate description',
+        'details' => $response->json() ?? $response->body()
     ], 500);
 }
 }

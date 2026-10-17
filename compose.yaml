@@ -6,6 +6,9 @@ services:
       - .:/var/www/html
     depends_on:
       - mysql
+      - ai_service
+    environment:
+      - AI_SERVICE_URL=http://ai_service:8000
 
   nginx:
     image: nginx:latest
@@ -28,5 +31,17 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
 
+  ai_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.ai
+    container_name: laravel_ai
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - huggingface_cache:/root/.cache/huggingface
+
 volumes:
   dbdata:
+  huggingface_cache:
