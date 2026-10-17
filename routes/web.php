@@ -22,6 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::get('/', function () {
+    return view('home');
+})->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('Contactindex', [ContactUsController::class,'index']);
 Route::get('createcontact', [ContactUsController::class,'store']);
 /////////////////////////////////////////////////////
@@ -36,10 +39,11 @@ foreach ($pages as $page) {
 }
 Route::get('subscriptions', [SubscriptionController::class,'index']);
 //createproject
-Route::post('/project/create', [ProjectController::class, 'create'])->name('project.create');
-Route::post('createproject', [ProjectController::class, 'store']);
+Route::get('/project/create', [ProjectController::class, 'create'])->name('project.create');
+Route::post('createproject', [ProjectController::class, 'store'])->name('project.store');
 Route::get('allmyprojects', [ProjectController::class, 'index'])->name('allprojects.index');
 Route::delete('delete/{project}', [ProjectController::class, 'destroy']);
+Route::get('project-ai-suggestion', [ProjectController::class, 'suggestDescription'])->name('project.ai.suggest');
 ///////////////////////////////////////////////////////////////////////////////
 Route::get('mytasks', [TaskController::class, 'index']);
 Route::get('createtask', [TaskController::class, 'create']);
@@ -63,9 +67,7 @@ route::post('Pay/{id}',[PaypalController::class,'Payment']);
 route::get('PaymentSuccess/{tier}',[PaypalController::class,'PaymentSuccess'])->name('PS');
 route::get('PaymentCancel',[PaypalController::class,'PaymentCancel'])->name('PC');
 ///////////////////////////////////////////////////////////////
-Route::get('/', function () {
-    return view('home');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 require __DIR__.'/admin.php';
 require __DIR__.'/auth.php';

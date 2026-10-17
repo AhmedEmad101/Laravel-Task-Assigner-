@@ -271,6 +271,59 @@
             transform: translateY(0);
         }
     }
+    /* AI Button & Header */
+    .label-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .label-header label {
+        margin-bottom: 0;
+    }
+
+    .ai-btn {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: #fff;
+        border: none;
+        padding: 5px 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+    }
+
+    .ai-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(118, 75, 162, 0.35);
+        color: #fff;
+    }
+
+    .ai-btn:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .ai-spinner {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
 </style>
 @endsection
 
@@ -339,10 +392,16 @@
             </div>
 
             <!-- Project Description -->
+            <!-- Project Description with AI Action -->
             <div class="form-group">
-                <label for="project-description">
-                    <i class="bi bi-file-text"></i> Project Description
-                </label>
+                <div class="label-header">
+                    <label for="project-description">
+                        <i class="bi bi-file-text"></i> Project Description
+                    </label>
+                    <button type="button" class="ai-btn" id="generateAiBtn">
+                        <i class="bi bi-stars"></i> Generate with AI
+                    </button>
+                </div>
                 <textarea id="project-description" 
                           name="description" 
                           placeholder="Describe what this project is about, its goals, and key deliverables..."
@@ -568,6 +627,76 @@
                 } else if (errorDiv && this.value.trim().length >= 10) {
                     errorDiv.remove();
                     this.classList.remove('error');
+                }
+            });
+        }
+        const generateAiBtn = document.getElementById('generateAiBtn');
+
+        if (generateAiBtn) {
+            generateAiBtn.addEventListener('click', async function() {
+                const title = projectNameInput ? projectNameInput.value.trim() : '';
+
+                if (!title || title.length < 3) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Title Required',
+                        text: 'Please enter a valid project title (at least 3 characters) first.',
+                        confirmButtonColor: '#4facfe'
+                    });
+                    projectNameInput.focus();
+                    return;
+                }
+
+                // Set loading state
+                const originalHtml = generateAiBtn.innerHTML;
+                generateAiBtn.disabled = true;
+                generateAiBtn.innerHTML = '<span class="ai-spinner"></span> Generating...';
+                descriptionInput.setAttribute('placeholder', 'Generating AI description, please wait...');
+
+                try {
+                    // Send request to your Laravel GET route
+                    const url = new URL("{{ route('project.ai.suggest') }}", window.location.origin);
+                    url.searchParams.append('title', title);
+                    url.searchParams.append('context_type', 'project');
+
+                    const response = await fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.description) {
+                        // Populate description textarea
+                        descriptionInput.value = data.description;
+
+                        // Trigger input event to sync counter and preview
+                        descriptionInput.dispatchEvent(new Event('input'));
+
+                        // Clear any lingering validation error
+                        const descError = descriptionInput.parentNode.querySelector('.error-message');
+                        if (descError) descError.remove();
+                        descriptionInput.classList.remove('error');
+                    } else {
+                        throw new Error(data.error || 'Failed to generate description.');
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'AI Generation Failed',
+                        text: error.message || 'Could not communicate with the local AI service.',
+                        confirmButtonColor: '#dc3545'
+                    });
+                } finally {
+                    generateAiBtn.disabled = false;
+                    generateAiBtn.innerHTML = originalHtml;
+                    descriptionInput.setAttribute(
+                        'placeholder', 
+                        'Describe what this project is about, its goals, and key deliverables...'
+                    );
                 }
             });
         }

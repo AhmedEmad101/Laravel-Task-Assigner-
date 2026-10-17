@@ -6,7 +6,7 @@ use App\Models\Project;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Http;
 class ProjectController extends Controller
 {
     /**
@@ -72,4 +72,21 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->back();
     }
+   public function suggestDescription(Request $request)
+{
+    $response = Http::timeout(60)->post('http://172.17.0.1:8000/generate-description', [
+        'title' => $request->string('title'),
+        'context_type' => $request->string('context_type', 'project'),
+    ]);
+
+    if ($response->successful()) {
+        return response()->json($response->json());
+    }
+
+    // Dump the actual error details from FastAPI
+    return response()->json([
+        'status' => $response->status(),
+        'error_from_python' => $response->json() ?? $response->body(),
+    ], 500);
+}
 }
